@@ -7,7 +7,7 @@ background-color:black;
 }
 @keyframes content {
   0%   {opacity:0;}
-  100% {opacity:0.5;}
+  100% {opacity:0.8;}
   
 }
 
@@ -90,15 +90,18 @@ background-color:black;
 }
 .data{
   animation: content 5s;
+  vertical-align: middle;
+  line-height: 1.2vh;
+  text-align: center;
 }
 #content1{
-background-color:green;
+background-color:rgba(255,255,255,0);
 height:90vh;
 width:100vw;
 float:left;
 position:fixed;
-color:white;
-opacity:0.5;
+color:black;
+opacity:0.8;
 }
 #content2{
 background-color:tomato;
@@ -360,21 +363,30 @@ function mousyend()
 </center>
 <div onmouseover="var myTimer=setTimeout('myFunction()', 400)"
 onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
+
 </div>
 <div id="content1" class="data">
-hi
+<br><br><br><h1 style="font-size:21vh;"><span style="color: red">H</span>ello.</h1>
+<h1 style="font-size:9.5vh;">I am <u><span style="color: red">A</span>shish</u></h1>
+<br><br>
+<h1>Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
+<h2> I am an undergraduate E.C.E student and</h2>
+<h2> I love everything related to code. My career objective is to accelerate </h2>
+<h2> my learning curve by working in a professional work driven firm where I can </h2>
+<h2> apply my knowledge and skills while fulfilling the goals of the organization.</h2>
 </div>
 <div id="content2" class="data">
-hi
+
 </div>
 <div id="content3" class="data">
-hi
+
 </div>
 <div id="content4" class="data">
-hi
+
 </div>
 <div onmouseover="var myTimer=setTimeout('myFunction1()', 400)"
 onmouseout="clearTimeout(myTimer)" id="RHS" class="controller">
+
 </div>
 
 </body>
