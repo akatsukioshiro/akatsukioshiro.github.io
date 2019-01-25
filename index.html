@@ -5,16 +5,12 @@ div
 {
 background-color:black;
 }
-@keyframes buttonmagic1 {
-  0%   {border-radius: 500px 15px;}
-  100% {border-radius: 15px 500px;}
-  <!--100%{border-radius: 500px 500px;}-->
+@keyframes content {
+  0%   {opacity:0;}
+  100% {opacity:0.5;}
+  
 }
-@keyframes buttonmagic2 {
-  0%   {border-radius: 15px 500px;}
-  100% {border-radius: 500px 15px;}
-  <!--100%{border-radius: 500px 500px;}-->
-}
+
 .center {
   margin-top: 0;
   padding-top: 0px;
@@ -38,14 +34,6 @@ background-color:black;
   z-index:4;
 }
 
-#first:hover{border-style: solid;border-color:white;
-  border-width: 0px 0px 7px 0px;}
-#second:hover{border-style: solid;border-color:red;
-  border-width: 0px 0px 7px 0px;}
-#third:hover{border-style: solid;border-color:red;
-  border-width: 0px 0px 7px 0px;}
-#fourth:hover{border-style: solid;border-color:red;
-  border-width: 0px 0px 7px 0px;}
 
 #wrapper {
   background-color:black;
@@ -99,6 +87,9 @@ background-color:black;
   z-index:1;
   
   opacity:0.2;
+}
+.data{
+  animation: content 5s;
 }
 #content1{
 background-color:green;
@@ -155,6 +146,10 @@ padding:0;}
     x.style.display = "none";
     y.style.display = "none";
     z.style.display = "none";
+    document.getElementById("first").style.borderBottom = "thick solid #FF0000";
+    document.getElementById("second").style.borderBottom = "none";
+    document.getElementById("third").style.borderBottom = "none";
+    document.getElementById("fourth").style.borderBottom = "none";
 
   } 
   else if (x.style.display === "block") {
@@ -162,6 +157,10 @@ padding:0;}
     x.style.display = "none";
     y.style.display = "none";
     z.style.display = "none";
+    document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
+    document.getElementById("second").style.borderBottom = "none";
+    document.getElementById("third").style.borderBottom = "none";
+    document.getElementById("fourth").style.borderBottom = "none";
 
   }
   else if (y.style.display === "block") {
@@ -169,6 +168,10 @@ padding:0;}
     x.style.display = "block";
     y.style.display = "none";
     z.style.display = "none";
+    document.getElementById("first").style.borderBottom = "none";
+    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
+    document.getElementById("third").style.borderBottom = "none";
+    document.getElementById("fourth").style.borderBottom = "none";
 
   }
   else if (z.style.display === "block") {
@@ -176,21 +179,29 @@ padding:0;}
     x.style.display = "none";
     y.style.display = "block";
     z.style.display = "none";
+    document.getElementById("first").style.borderBottom = "none";
+    document.getElementById("second").style.borderBottom = "none";
+    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
+    document.getElementById("fourth").style.borderBottom = "none";
 
   }
   
 }
 function myFunction1() {
-  var w = document.getElementById("content1");
-  var x = document.getElementById("content2");
-  var y = document.getElementById("content3");
-  var z = document.getElementById("content4");
-  	
+    var w = document.getElementById("content1");
+    var x = document.getElementById("content2");
+    var y = document.getElementById("content3");
+    var z = document.getElementById("content4");
+	
   if (w.style.display === "block") {
     w.style.display = "none";
     x.style.display = "block";
     y.style.display = "none";
     z.style.display = "none";
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
 
   } 
   else if (x.style.display === "block") {
@@ -198,6 +209,10 @@ function myFunction1() {
     x.style.display = "none";
     y.style.display = "block";
     z.style.display = "none";
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("fourth").style.borderBottom = "none";
 
   }
   else if (y.style.display === "block") {
@@ -205,6 +220,10 @@ function myFunction1() {
     x.style.display = "none";
     y.style.display = "none";
     z.style.display = "block";
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
 
   }
   else if (z.style.display === "block") {
@@ -212,6 +231,10 @@ function myFunction1() {
     x.style.display = "none";
     y.style.display = "none";
     z.style.display = "block";
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
 
   }
   
@@ -221,23 +244,122 @@ function start() {
   w.style.display = "block";
   var x = document.getElementById("content2");
   x.style.display = "none";
-  var y = document.getElementById("content2");
+  var y = document.getElementById("content3");
   y.style.display = "none";
-  var z = document.getElementById("content2");
+  var z = document.getElementById("content4");
   z.style.display = "none";
+   document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
+
 }
-        </script>
+function mousy1start()
+{
+   document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+}
+function mousy2start()
+{
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+}
+function mousy3start()
+{
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+}
+function mousy4start()
+{
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
+
+}
+function mycall1(){   mousy1start();
+   document.getElementById("content1").style.display = "block";
+   document.getElementById("content2").style.display = "none";
+   document.getElementById("content3").style.display = "none";
+   document.getElementById("content4").style.display = "none";
+}
+function mycall2(){   mousy2start();
+   document.getElementById("content1").style.display = "none";
+   document.getElementById("content2").style.display = "block";
+   document.getElementById("content3").style.display = "none";
+   document.getElementById("content4").style.display = "none";
+}
+function mycall3(){   mousy3start();
+   document.getElementById("content1").style.display = "none";
+   document.getElementById("content2").style.display = "none";
+   document.getElementById("content3").style.display = "block";
+   document.getElementById("content4").style.display = "none";
+}
+function mycall4(){
+   document.getElementById("content1").style.display = "none";
+   document.getElementById("content2").style.display = "none";
+   document.getElementById("content3").style.display = "none";
+   document.getElementById("content4").style.display = "block";
+}
+function mousyend()
+{
+    var w = document.getElementById("content1");
+    var x = document.getElementById("content2");
+    var y = document.getElementById("content3");
+    var z = document.getElementById("content4");
+	
+  if (w.style.display === "block") {
+   document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+  } 
+  else if (x.style.display === "block") {
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+  }
+  else if (y.style.display === "block") {
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "thick solid #FF0000";
+   document.getElementById("fourth").style.borderBottom = "none";
+
+  }
+  else if (z.style.display === "block") {
+   document.getElementById("first").style.borderBottom = "none";
+   document.getElementById("second").style.borderBottom = "none";
+   document.getElementById("third").style.borderBottom = "none";
+   document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
+
+
+}
+}
+</script>
 </head><body onload="start()">
 <div id="wrapper" class="center">
-  <div onclick="mycall1()" class="button" id="first">HOME</div>
-  <div onclick="mycall2()" class="button" id="second">ABOUT</div>
-  <div class="button" id="third">EDUCATION</div>
-  <div class="button" id="fourth">PROJECTS</div>
+  <div onmouseover="mousy1start()" onmouseout="mousyend()" onclick="mycall1()" class="button" id="first">HOME</div>
+  <div onmouseover="mousy2start()" onmouseout="mousyend()" onclick="mycall2()" class="button" id="second">ABOUT</div>
+  <div onmouseover="mousy3start()" onmouseout="mousyend()" onclick="mycall3()" class="button" id="third">EDUCATION</div>
+  <div onmouseover="mousy4start()" onmouseout="mousyend()" onclick="mycall4()" class="button" id="fourth">PROJECTS</div>
 </div>
 </div>
 <center>
 </center>
-<div onmouseover="myFunction()" id="LHS" class="controller">
+<div onmouseover="var myTimer=setTimeout('myFunction()', 400)"
+onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 </div>
 <div id="content1" class="data">
 hi
@@ -245,7 +367,14 @@ hi
 <div id="content2" class="data">
 hi
 </div>
-<div onmouseover="myFunction1()" id="RHS" class="controller">
+<div id="content3" class="data">
+hi
+</div>
+<div id="content4" class="data">
+hi
+</div>
+<div onmouseover="var myTimer=setTimeout('myFunction1()', 400)"
+onmouseout="clearTimeout(myTimer)" id="RHS" class="controller">
 </div>
 
 </body>
