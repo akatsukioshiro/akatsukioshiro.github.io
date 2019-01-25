@@ -1,0 +1,252 @@
+<html>
+<title>764962 - Ashish V Nair</title>
+<style>
+div
+{
+background-color:black;
+}
+@keyframes buttonmagic1 {
+  0%   {border-radius: 500px 15px;}
+  100% {border-radius: 15px 500px;}
+  <!--100%{border-radius: 500px 500px;}-->
+}
+@keyframes buttonmagic2 {
+  0%   {border-radius: 15px 500px;}
+  100% {border-radius: 500px 15px;}
+  <!--100%{border-radius: 500px 500px;}-->
+}
+.center {
+  margin-top: 0;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 35px;
+  padding-left: 0px;
+  position:static;
+  z-index:3;
+  }
+.button{
+  height: 3vh;
+  width: 10vw;
+  vertical-align: middle;
+  line-height: 6.2vh;
+  text-align: center;
+  color:white;
+  transition: 0s;
+  font-family: "Arial", Times, Monospace;
+  font-weight: bold;
+  position:static
+  z-index:4;
+}
+
+#first:hover{border-style: solid;border-color:white;
+  border-width: 0px 0px 7px 0px;}
+#second:hover{border-style: solid;border-color:red;
+  border-width: 0px 0px 7px 0px;}
+#third:hover{border-style: solid;border-color:red;
+  border-width: 0px 0px 7px 0px;}
+#fourth:hover{border-style: solid;border-color:red;
+  border-width: 0px 0px 7px 0px;}
+
+#wrapper {
+  background-color:black;
+  height:3vh;
+  width:100vw;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  padding-bottom:2.5vh
+  clear:both;
+}
+#first {
+  background-color:rgba(255, 0, 0, 1);
+  padding-bottom: 35px;
+  float:left;
+}
+#second {
+  background-color:rgba(255, 0, 0, 0);
+  padding-bottom: 35px;
+  float:left;
+}
+#third {
+  background-color:rgba(255, 0, 0, 0);
+  padding-bottom: 35px;
+  float:left;
+}
+#fourth {
+  background-color:rgba(255, 0, 0, 0);
+  padding-bottom: 35px;
+  float:left;
+}
+#LHS{
+  margin-top: 0;
+  margin-bottom:0;
+  width:2vw;
+  height:90%;
+  float:left;
+  background-color:blue;
+  position:fixed;
+  z-index:1;
+  opacity:0.2;
+  
+}
+#RHS{
+  margin-top: 0;
+  margin-bottom:0;
+  margin-right:0;
+  width:2vw;
+  height:90%;
+  float:right;
+  background-color:red;
+  position:static;
+  z-index:1;
+  
+  opacity:0.2;
+}
+#content1{
+background-color:green;
+height:90vh;
+width:100vw;
+float:left;
+position:fixed;
+color:white;
+opacity:0.5;
+}
+#content2{
+background-color:tomato;
+height:90vh;
+width:100vw;
+float:left;
+position:fixed;
+color:white;
+opacity:0.5;
+}
+#content3{
+background-color:yellow;
+height:90vh;
+width:100vw;
+float:left;
+position:fixed;
+color:white;
+opacity:0.5;
+}
+#content4{
+background-color:grey;
+height:90vh;
+width:100vw;
+float:left;
+position:fixed;
+color:white;
+opacity:0.5;
+}
+body {background-color:white;
+margin:0;
+padding:0;}
+</style>
+<script type="application/javascript">
+  function showMsg(item) {
+            alert(item);
+        }
+  function myFunction() {
+  var w = document.getElementById("content1");
+  var x = document.getElementById("content2");
+  var y = document.getElementById("content3");
+  var z = document.getElementById("content4");
+  	
+  if (w.style.display === "block") {
+    w.style.display = "block";
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+
+  } 
+  else if (x.style.display === "block") {
+    w.style.display = "block";
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+
+  }
+  else if (y.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "none";
+
+  }
+  else if (z.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "none";
+    y.style.display = "block";
+    z.style.display = "none";
+
+  }
+  
+}
+function myFunction1() {
+  var w = document.getElementById("content1");
+  var x = document.getElementById("content2");
+  var y = document.getElementById("content3");
+  var z = document.getElementById("content4");
+  	
+  if (w.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "none";
+
+  } 
+  else if (x.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "none";
+    y.style.display = "block";
+    z.style.display = "none";
+
+  }
+  else if (y.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "block";
+
+  }
+  else if (z.style.display === "block") {
+    w.style.display = "none";
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "block";
+
+  }
+  
+}	
+function start() {
+  var w = document.getElementById("content1");
+  w.style.display = "block";
+  var x = document.getElementById("content2");
+  x.style.display = "none";
+  var y = document.getElementById("content2");
+  y.style.display = "none";
+  var z = document.getElementById("content2");
+  z.style.display = "none";
+}
+        </script>
+</head><body onload="start()">
+<div id="wrapper" class="center">
+  <div onclick="mycall1()" class="button" id="first">HOME</div>
+  <div onclick="mycall2()" class="button" id="second">ABOUT</div>
+  <div class="button" id="third">EDUCATION</div>
+  <div class="button" id="fourth">PROJECTS</div>
+</div>
+</div>
+<center>
+</center>
+<div onmouseover="myFunction()" id="LHS" class="controller">
+</div>
+<div id="content1" class="data">
+hi
+</div>
+<div id="content2" class="data">
+hi
+</div>
+<div onmouseover="myFunction1()" id="RHS" class="controller">
+</div>
+
+</body>
+</html>
