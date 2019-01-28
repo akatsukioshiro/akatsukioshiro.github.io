@@ -1,5 +1,6 @@
 <html>
 <title>764962 - Ashish V Nair</title>
+<head>
 <style>
 div
 {
@@ -10,7 +11,6 @@ background-color:black;
   100% {opacity:0.8;}
   
 }
-
 .center {
   margin-top: 0;
   padding-top: 0px;
@@ -33,8 +33,6 @@ background-color:black;
   position:static
   z-index:4;
 }
-
-
 #wrapper {
   background-color:black;
   height:3vh;
@@ -42,6 +40,7 @@ background-color:black;
   box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
   padding-bottom:2.5vh
   clear:both;
+  position:fixed;
 }
 #first {
   background-color:rgba(255, 0, 0, 1);
@@ -67,7 +66,7 @@ background-color:black;
   margin-top: 0;
   margin-bottom:0;
   width:2vw;
-  height:90%;
+  height:100vh;
   float:left;
   background-color:blue;
   position:fixed;
@@ -80,7 +79,7 @@ background-color:black;
   margin-bottom:0;
   margin-right:0;
   width:2vw;
-  height:90%;
+  height:100vh;
   float:right;
   background-color:red;
   position:static;
@@ -95,8 +94,11 @@ background-color:black;
   text-align: center;
 }
 #content1{
-background-color:rgba(255,255,255,0);
-height:90vh;
+background-image:url("Randomized-Pattern.svg");
+background-repeat: no-repeat;
+  background-size: 100% 100%;
+margin-bottom:0px;
+height:100vh;
 width:100vw;
 float:left;
 position:fixed;
@@ -133,6 +135,29 @@ opacity:0.5;
 body {background-color:white;
 margin:0;
 padding:0;}
+#text{
+background-color:rgba(1,1,1,0);
+height:34vh;
+width:25vw;
+line-height: 200%;
+text-align: justify;
+text-justify: inter-word;
+}
+#borderbox{
+background-color:rgba(255,255,255,1);
+width:35vw;
+height:80vh;
+margin-top:3vh;
+border-style: inset;
+border-top-color: black;
+border-right-color: red;
+border-bottom-color: red;
+border-left-color: black;
+border-width: 3vh 3vh 3vh 3vh;
+box-shadow: inset 10px 10px 25px grey,10px 10px 25px grey;
+
+}
+
 </style>
 <script type="application/javascript">
   function showMsg(item) {
@@ -149,11 +174,10 @@ padding:0;}
     x.style.display = "none";
     y.style.display = "none";
     z.style.display = "none";
-    document.getElementById("first").style.borderBottom = "thick solid #FF0000";
+    document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
     document.getElementById("second").style.borderBottom = "none";
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
-
   } 
   else if (x.style.display === "block") {
     w.style.display = "block";
@@ -164,7 +188,6 @@ padding:0;}
     document.getElementById("second").style.borderBottom = "none";
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
-
   }
   else if (y.style.display === "block") {
     w.style.display = "none";
@@ -175,7 +198,6 @@ padding:0;}
     document.getElementById("second").style.borderBottom = "thick solid #FF0000";
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
-
   }
   else if (z.style.display === "block") {
     w.style.display = "none";
@@ -186,7 +208,6 @@ padding:0;}
     document.getElementById("second").style.borderBottom = "none";
     document.getElementById("third").style.borderBottom = "thick solid #FF0000";
     document.getElementById("fourth").style.borderBottom = "none";
-
   }
   
 }
@@ -205,7 +226,6 @@ function myFunction1() {
    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
   } 
   else if (x.style.display === "block") {
     w.style.display = "none";
@@ -216,7 +236,6 @@ function myFunction1() {
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
-
   }
   else if (y.style.display === "block") {
     w.style.display = "none";
@@ -227,7 +246,6 @@ function myFunction1() {
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
-
   }
   else if (z.style.display === "block") {
     w.style.display = "none";
@@ -238,7 +256,6 @@ function myFunction1() {
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
-
   }
   
 }	
@@ -255,7 +272,6 @@ function start() {
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
 }
 function mousy1start()
 {
@@ -263,7 +279,6 @@ function mousy1start()
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
 }
 function mousy2start()
 {
@@ -271,7 +286,6 @@ function mousy2start()
    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
 }
 function mousy3start()
 {
@@ -279,7 +293,6 @@ function mousy3start()
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
-
 }
 function mousy4start()
 {
@@ -287,7 +300,6 @@ function mousy4start()
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
-
 }
 function mycall1(){   mousy1start();
    document.getElementById("content1").style.display = "block";
@@ -325,29 +337,24 @@ function mousyend()
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
   } 
   else if (x.style.display === "block") {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
-
   }
   else if (y.style.display === "block") {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
-
   }
   else if (z.style.display === "block") {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
-
-
 }
 }
 </script>
@@ -366,15 +373,24 @@ onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 
 </div>
 <div id="content1" class="data">
-<br><br><br><h1 style="font-size:21vh;"><span style="color: red">H</span>ello.</h1>
+<center>
+<br><br><br><br><br><br>
+<div id="borderbox">
+<h1 style="font-size:21vh;"><span style="color: red">H</span>ello.</h1>
 <h1 style="font-size:9.5vh;">I am <u><span style="color: red">A</span>shish</u></h1>
 <br><br>
 <h1>Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
-<h2> I am an undergraduate E.C.E student and</h2>
-<h2> I love everything related to code. My career objective is to accelerate </h2>
-<h2> my learning curve by working in a professional work driven firm where I can </h2>
-<h2> apply my knowledge and skills while fulfilling the goals of the organization.</h2>
-</div>
+<div id="text" class="box">
+<h2>I am an undergraduate E.C.E student. 
+I am passionate about my career and 
+to me my time is very important. I 
+love to engage myself by doing projects 
+and learning new concepts. I love to work 
+with people and I believe anybody can 
+learn and progress efficiently by 
+becoming a team player.</h2>
+</div></div></div></center>
+</center>
 <div id="content2" class="data">
 
 </div>
