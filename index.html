@@ -11,6 +11,7 @@ background-color:black;
   100% {opacity:1;}
   
 }
+
 .center {
   margin-top: 0;
   padding-top: 0px;
@@ -241,6 +242,19 @@ text-align: left;
 line-height:2.55vh;
 position:relative;
 }
+#loading {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(192, 192, 192, 0.5);
+    background-image: url("http://i.stack.imgur.com/MnyxU.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+}
 #c4d_1{
 height:50vh;
 width:50vw;
@@ -258,10 +272,28 @@ a:link {
   text-decoration: none;
 }
 </style>
+
 <script type="application/javascript">
-  function showMsg(item) {
-            alert(item);
+function onReady(callback) {
+    var intervalID = window.setInterval(checkReady, 1000);
+
+    function checkReady() {
+        if (document.getElementsByTagName('body')[0] !== undefined) {
+            window.clearInterval(intervalID);
+            callback.call(this);
         }
+    }
+}
+
+function show(id, value) {
+    document.getElementById(id).style.display = value ? 'block' : 'none';
+}
+
+onReady(function () {
+    show('content1', true);
+    show('loading', false);
+});
+  
   function myFunction() {
   var w = document.getElementById("content1");
   var x = document.getElementById("content2");
