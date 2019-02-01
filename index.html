@@ -29,6 +29,8 @@
   transition: 0s;
   font-family: "Arial", Times, Monospace;
   font-weight: bold;
+  font-size:0.83vw;
+  resize:both;
   position:static
   z-index:4;
 }
@@ -40,6 +42,7 @@
   box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
   padding-bottom:2.5vh
   clear:both;
+  resize:both;
   position:fixed;
 }
 
@@ -47,25 +50,26 @@
   background-color:rgba(255, 0, 0, 1);
   padding-bottom: 35px;
   float:left;
+  resize:both;
 }
 
 #second {
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-}
+resize:both;}
 
 #third {
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-}
+resize:both;}
 
 #fourth {
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-}
+resize:both;}
 
 #LHS{
   margin-top: 0;
@@ -164,8 +168,8 @@ text-justify: inter-word;
 background-color:rgba(255,255,255,1);
 width:35vw;
 height:80vh;
-max-height: 80vh;
-max-width: 50vw;
+max-height: 100vw;
+max-width: 32vw;
 overflow-x:hidden;
 overflow-y:hidden;
 margin-top:3vh;
@@ -184,12 +188,13 @@ width:60vw;
 height:70vh;
 margin-top:3vh;
 border-style: inset;
-border-radius: 10px 220px;
+border-radius: 1vh 22vh;
 border-top-color: black;
 border-right-color: #570000;
 border-bottom-color: #570000;
 overflow-x:hidden;
 overflow-y:hidden;
+line-height:8vh;
 border-left-color: black;
 border-width: 3vh 3vh 3vh 3vh;
 box-shadow: inset 10px 10px 25px grey,10px 10px 25px black;
@@ -201,12 +206,13 @@ width:60vw;
 height:70vh;
 margin-top:3vh;
 border-style: inset;
-border-radius: 10px 220px;
+border-radius: 1vh 22vh;
 border-top-color: black;
 border-right-color: #740691;
 border-bottom-color: #740691;
 overflow-x:hidden;
 overflow-y:hidden;
+line-height:8vh;
 border-left-color: black;
 border-width: 3vh 3vh 3vh 3vh;
 box-shadow: inset 10px 10px 25px black,10px 10px 25px black;
@@ -216,9 +222,10 @@ box-shadow: inset 10px 10px 25px black,10px 10px 25px black;
 background-color:rgba(255,255,255,1);
 width:60vw;
 height:70vh;
+line-height:8vh;
 margin-top:3vh;
 border-style: inset;
-border-radius: 10px 220px;
+border-radius: 1vh 22vh;
 border-top-color: black;
 border-right-color: #570000;
 border-bottom-color: #570000;
@@ -292,6 +299,17 @@ a:link {
 </style>
 
 <script type="application/javascript">
+
+window.addEventListener("orientationchange", function() {
+  // Announce the new orientation number
+  if(window.innerHeight <= window.innerWidth){
+    //alert("Please use Landscape!");
+    //document.getElementById("RHS").style.display = "block";
+}else{//document.getElementById("wrapper").style.display = "block";
+}
+    
+}, true);
+
 
 function onReady(callback) {
     var intervalID = window.setInterval(checkReady, 1000);
@@ -508,7 +526,7 @@ function mousyend()
 }
 }
 </script>
-</head><body onload="start()">
+</head><body onload="start()" id="bdy">
 <div id="wrapper" class="center">
   <div onmouseover="mousy1start()" onmouseout="mousyend()" onclick="mycall1()" class="button" id="first">HOME</div>
   <div onmouseover="mousy2start()" onmouseout="mousyend()" onclick="mycall2()" class="button" id="second">ABOUT</div>
@@ -526,12 +544,12 @@ onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 <center>
 <br><br><br><br><br><br>
 <div id="borderbox">
-<h1 style="font-size:21vh;"><span style="color: red">H</span>ello.</h1>
-<h1 style="font-size:9.5vh;">I am <u><span style="color: red">A</span>shish</u></h1>
+<h1 style="font-size:10.5vw;"><span style="color: red">H</span>ello.</h1>
+<h1 style="font-size:4.75vw;">I am <u><span style="color: red">A</span>shish</u></h1>
 <br><br>
-<h1 style="font-size:3.5vh;">Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
+<h1 style="font-size:1.75vw;">Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
 <div id="text" class="box">
-<h2 style="font-size:2.5vh;">I am an undergraduate E.C.E student. 
+<h2 style="font-size:1.25vw;">I am an undergraduate E.C.E student. 
 I am passionate about my career and 
 to me my time is very important. I 
 love to engage myself by doing projects 
@@ -544,48 +562,48 @@ becoming a team player.</h2>
 <div id="content2" class="data">
 <center>
 <br><br><br><br><br><br><br><br><br><br><br>
-<div id="content2_data"><br><br><br><br><br><br><br><br>
+<div id="content2_data"><br>
 <center><div id="c2data">
-<span style="font-size:2.7vh;font-family:Arial;"><br>&nbsp; <b><span style="color: red">B</span>asic Info     :</b></span><br>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;Ashish V Nair</span>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Contact&nbsp;&nbsp;:</b>&nbsp;+91-7358337020</span>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Email ID&nbsp;:</b>&nbsp;ashishnair.oph@gmail.com</span>
+<span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">B</span>asic Info     :</b></span><br>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;Ashish V Nair</span>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Contact&nbsp;&nbsp;:</b>&nbsp;+91-7358337020</span>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Email ID&nbsp;:</b>&nbsp;ashishnair.oph@gmail.com</span>
 <br><br>
-<span style="font-size:2.7vh;font-family:Arial;"><br>&nbsp; <b><span style="color: red">C</span>reative Sector     :</b></span><br>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Photography&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.instagram.com/akatsuki_oshiro" style="color:#80333E">Instagram</a></b></span>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Personal Blog&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://octainphantom.wordpress.com" style="color:#80333E">Wordpress</a></b></span>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>OpenSource&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.github.com/akatsukioshiro" style="color:#80333E">Github</a></b></span>
-<span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Video&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.youtube.com/chanel/UCU_G-MYyAo2ssr9YLqqlXzw" style="color:#80333E">YouTube</a></b></span>
-<br><span style="font-size:2.12vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Modifications : </b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:1.85vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>1.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94715" style="color:#80333E">TESV-Skyrim : Eternal Sleep</a></b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:1.85vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>2.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94930" style="color:#80333E">TESV-Skyrim : Curiosity Curse</a></b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:1.85vh;font-family:Arial;"><br>&nbsp;&nbsp; <b>3.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/95035" style="color:#80333E">TESV-Skyrim : Allegiant Dead</a></b></span>
+<span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">C</span>reative Sector     :</b></span><br>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Photography&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.instagram.com/akatsuki_oshiro" style="color:#80333E">Instagram</a></b></span>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Personal Blog&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://octainphantom.wordpress.com" style="color:#80333E">Wordpress</a></b></span>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>OpenSource&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.github.com/akatsukioshiro" style="color:#80333E">Github</a></b></span>
+<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Video&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.youtube.com/chanel/UCU_G-MYyAo2ssr9YLqqlXzw" style="color:#80333E">YouTube</a></b></span>
+<br><span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Modifications : </b></span>
+&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>1.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94715" style="color:#80333E">TESV-Skyrim : Eternal Sleep</a></b></span>
+&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>2.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94930" style="color:#80333E">TESV-Skyrim : Curiosity Curse</a></b></span>
+&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>3.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/95035" style="color:#80333E">TESV-Skyrim : Allegiant Dead</a></b></span>
 
 </div></center>
 </div>
 </center>
 </div>
 <div id="content3" class="data"><br><br><br><br><br><br><br><br><br><br>
-<center><div id="c3d"><br><br><br><br><br><br><br><br><br>
+<center><div id="c3d"><br>
 <div id="c3d_1"><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Under Graduation :</b></span><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:2.9vh;">2015 - 2019 :</span>&nbsp SRM Institute of Science and Technology</b></span><br><br><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 12th :</b></span><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:2.9vh;">2014 - 2015 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 10th :</b></span><br>
-<span style="font-size:2.7vh;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:2.9vh;">2012 - 2013 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Under Graduation :</b></span><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2015 - 2019 :</span>&nbsp SRM Institute of Science and Technology</b></span><br><br><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 12th :</b></span><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2014 - 2015 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 10th :</b></span><br>
+<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2012 - 2013 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
 </div>
 </div></center>
 </div>
 <div id="content4" class="data"><br><br><br><br><br><br><br><br><br>
-<center><div id="c4d"><br><br><br><br><br><br><br><br><br>
+<center><div id="c4d"><br>
 <div id="c4d_1"><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp AUSB for Driverless Transportation</b></span><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">N<span style="color: #9507BA">ov</span> - D<span style="color: #9507BA">ec</span> </span>2018 :</span>&nbsp Gaming Projects</b></span><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">J<span style="color: #9507BA">ul</span> - N<span style="color: #9507BA">ov</span> </span>2018 :</span>&nbsp Robotic Vision using Object Detection</b></span><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">J<span style="color: #9507BA">un</span> - J<span style="color: #9507BA">ul</span> </span>2018 :</span>&nbsp Desktop Phonebook Application</b></span><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2018 :</span>&nbsp PWM Sine Wave Inverter</b></span><br><br>
-<span style="font-size:2.7vh;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:3.5vh;"><span style="color: #CA0AFC;font-size:2.5vh;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2017 :</span>&nbsp MCQ Test Application</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp AUSB for Driverless Transportation</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">N<span style="color: #9507BA">ov</span> - D<span style="color: #9507BA">ec</span> </span>2018 :</span>&nbsp Gaming Projects</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">ul</span> - N<span style="color: #9507BA">ov</span> </span>2018 :</span>&nbsp Robotic Vision using Object Detection</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">un</span> - J<span style="color: #9507BA">ul</span> </span>2018 :</span>&nbsp Desktop Phonebook Application</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2018 :</span>&nbsp PWM Sine Wave Inverter</b></span><br><br>
+<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2017 :</span>&nbsp MCQ Test Application</b></span><br><br>
 
 
 </div>
