@@ -3,13 +3,14 @@
 <head>
 <style>
 
-@keyframes content {
+@keyframes content
+{
   0%   {opacity:0;}
-  100% {opacity:1;}
-  
+  100% {opacity:1;}  
 }
 
-.center {
+.center 
+{
   margin-top: 0;
   padding-top: 0px;
   padding-right: 0px;
@@ -17,9 +18,10 @@
   padding-left: 0px;
   position:static;
   z-index:3;
-  }
+}
 
-.button{
+.button
+{
   height: 3vh;
   width: 10vw;
   vertical-align: middle;
@@ -35,7 +37,8 @@
   z-index:4;
 }
 
-#wrapper {
+#wrapper 
+{
   background-color:black;
   height:3vh;
   width:100vw;
@@ -46,32 +49,40 @@
   position:fixed;
 }
 
-#first {
+#first 
+{
   background-color:rgba(255, 0, 0, 1);
   padding-bottom: 35px;
   float:left;
   resize:both;
 }
 
-#second {
+#second 
+{
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-resize:both;}
+  resize:both;
+}
 
-#third {
+#third 
+{
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-resize:both;}
+  resize:both;
+}
 
-#fourth {
+#fourth 
+{
   background-color:rgba(255, 0, 0, 0);
   padding-bottom: 35px;
   float:left;
-resize:both;}
+  resize:both;
+}
 
-#LHS{
+#LHS 
+{
   margin-top: 0;
   margin-bottom:0;
   width:2vw;
@@ -81,10 +92,10 @@ resize:both;}
   position:fixed;
   z-index:1;
   opacity:0.8;
-  
 }
 
-#RHS{
+#RHS
+{
   margin-top: 0;
   margin-bottom:0;
   margin-right:0;
@@ -93,206 +104,223 @@ resize:both;}
   float:right;
   background-image:url("Wavey-Fingerprint.svg");
   position:static;
-  z-index:1;
-  
+  z-index:1;  
   opacity:0.8;
 }
 
-.data{
+.data
+{
   animation: content 5s;
   vertical-align: middle;
   line-height: 1.2vh;
   text-align: center;
 }
 
-#content1{
-background-image:url("Randomized-Pattern.svg");
-background-attachment: fixed;
-background-size: cover;
-margin-bottom:0px;
-height:100vh;
-width:100vw;
-float:left;
-position:fixed;
-color:black;
-opacity:1;
+#content1
+{
+  background-image:url("Randomized-Pattern.svg");
+  background-attachment: fixed;
+  background-size: cover;
+  margin-bottom:0px;
+  height:100vh;
+  width:100vw;
+  float:left;
+  position:fixed;
+  color:black;
+  opacity:1;
 }
 
-#content2{
-background-image:url("Zig-Zag.svg");
-height:100vh;
-width:100vw;
-margin-bottom:0px;
-float:left;
-position:fixed;
-color:white;
-opacity:1;
+#content2
+{
+  background-image:url("Zig-Zag.svg");
+  height:100vh;
+  width:100vw;
+  margin-bottom:0px;
+  float:left;
+  position:fixed;
+  color:white;
+  opacity:1;
 }
 
-#content3{
-background-image:url("Tortoise-Shell.svg");
-height:100vh;
-width:100vw;
-margin-bottom:0px;
-float:left;
-position:fixed;
-color:white;
-opacity:1;
+#content3
+{
+  background-image:url("Tortoise-Shell.svg");
+  height:100vh;
+  width:100vw;
+  margin-bottom:0px;
+  float:left;
+  position:fixed;
+  color:white;
+  opacity:1;
 }
 
-#content4{
-background-image:url("Subtle-Prism.svg");
-height:100vh;
-width:100vw;
-margin-bottom:0px;
-float:left;
-position:fixed;
-color:white;
-opacity:1;
+#content4
+{
+  background-image:url("Subtle-Prism.svg");
+  height:100vh;
+  width:100vw;
+  margin-bottom:0px;
+  float:left;
+  position:fixed;
+  color:white;
+  opacity:1;
 }
 
-body {background-color:white;
-margin:0;
-padding:0;}
-
-#text{
-background-color:rgba(1,1,1,0);
-height:34vh;
-width:25vw;
-line-height: 3vh;
-text-align: justify;
-text-justify: inter-word;
+body 
+{
+  background-color:white;
+  margin:0;
+  padding:0;
 }
 
-#borderbox{
-background-color:rgba(255,255,255,1);
-width:35vw;
-height:80vh;
-max-height: 100vw;
-max-width: 32vw;
-overflow-x:hidden;
-overflow-y:hidden;
-margin-top:3vh;
-border-style: inset;
-border-top-color: black;
-border-right-color: red;
-border-bottom-color: red;
-border-left-color: black;
-border-width: 3vh 3vh 3vh 3vh;
-box-shadow: inset 10px 10px 25px grey,10px 10px 25px grey;
+#text
+{
+  background-color:rgba(1,1,1,0);
+  height:34vh;
+  width:25vw;
+  line-height: 3vh;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
-#c3d{
-background-color:rgba(255,255,255,1);
-width:60vw;
-height:70vh;
-margin-top:3vh;
-border-style: inset;
-border-radius: 1vh 22vh;
-border-top-color: black;
-border-right-color: #570000;
-border-bottom-color: #570000;
-overflow-x:hidden;
-overflow-y:hidden;
-line-height:8vh;
-border-left-color: black;
-border-width: 3vh 3vh 3vh 3vh;
-box-shadow: inset 10px 10px 25px grey,10px 10px 25px black;
+#borderbox
+{
+  background-color:rgba(255,255,255,1);
+  width:35vw;
+  height:80vh;
+  max-height: 100vw;
+  max-width: 32vw;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  margin-top:3vh;
+  border-style: inset;
+  border-top-color: black;
+  border-right-color: red;
+  border-bottom-color: red;
+  border-left-color: black;
+  border-width: 3vh 3vh 3vh 3vh;
+  box-shadow: inset 10px 10px 25px grey,10px 10px 25px grey;
 }
 
-#c4d{
-background-color:rgba(5,11,5,0.4);
-width:60vw;
-height:70vh;
-margin-top:3vh;
-border-style: inset;
-border-radius: 1vh 22vh;
-border-top-color: black;
-border-right-color: #740691;
-border-bottom-color: #740691;
-overflow-x:hidden;
-overflow-y:hidden;
-line-height:8vh;
-border-left-color: black;
-border-width: 3vh 3vh 3vh 3vh;
-box-shadow: inset 10px 10px 25px black,10px 10px 25px black;
+#c3d
+{
+  background-color:rgba(255,255,255,1);
+  width:60vw;
+  height:70vh;
+  margin-top:3vh;
+  border-style: inset;
+  border-radius: 1vh 22vh;
+  border-top-color: black;
+  border-right-color: #570000;
+  border-bottom-color: #570000;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  line-height:8vh;
+  border-left-color: black;
+  border-width: 3vh 3vh 3vh 3vh;
+  box-shadow: inset 10px 10px 25px grey,10px 10px 25px black;
 }
 
-#content2_data{
-background-color:rgba(255,255,255,1);
-width:60vw;
-height:70vh;
-line-height:8vh;
-margin-top:3vh;
-border-style: inset;
-border-radius: 1vh 22vh;
-border-top-color: black;
-border-right-color: #570000;
-border-bottom-color: #570000;
-overflow-x:hidden;
-overflow-y:hidden;
-border-left-color: black;
-border-width: 3vh 3vh 3vh 3vh;
-box-shadow: inset 10px 10px 25px grey,10px 10px 25px black;
+#c4d
+{
+  background-color:rgba(5,11,5,0.4);
+  width:60vw;
+  height:70vh;
+  margin-top:3vh;
+  border-style: inset;
+  border-radius: 1vh 22vh;
+  border-top-color: black;
+  border-right-color: #740691;
+  border-bottom-color: #740691;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  line-height:8vh;
+  border-left-color: black;
+  border-width: 3vh 3vh 3vh 3vh;
+  box-shadow: inset 10px 10px 25px black,10px 10px 25px black;
 }
 
-#c2data{
-height:50vh;
-width:50vw;
-background-color:rgba(0,0,0,0);
-border-style: inset;
-border-radius:10px;
-border-width: 0vh 0vh 0vh 3vh;
-border-left-color: black;
-color:black;
-text-align: left;
-line-height:2.55vh;
-position:relative;
+#content2_data
+{
+  background-color:rgba(255,255,255,1);
+  width:60vw;
+  height:70vh;
+  line-height:8vh;
+  margin-top:3vh;
+  border-style: inset;
+  border-radius: 1vh 22vh;
+  border-top-color: black;
+  border-right-color: #570000;
+  border-bottom-color: #570000;
+  overflow-x:hidden;
+  overflow-y:hidden;
+  border-left-color: black;
+  border-width: 3vh 3vh 3vh 3vh;
+  box-shadow: inset 10px 10px 25px grey,10px 10px 25px black;
 }
 
-#c3d_1{
-height:50vh;
-width:50vw;
-background-color:rgba(0,0,0,0);
-border-style: inset;
-border-radius:10px;
-border-width: 0vh 0vh 0vh 3vh;
-border-left-color: black;
-color:black;
-text-align: left;
-line-height:2.55vh;
-position:relative;
+#c2data
+{
+  height:50vh;
+  width:50vw;
+  background-color:rgba(0,0,0,0);
+  border-style: inset;
+  border-radius:10px;
+  border-width: 0vh 0vh 0vh 3vh;
+  border-left-color: black;
+  color:black;
+  text-align: left;
+  line-height:2.55vh;
+  position:relative;
 }
 
-#loading {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 1);
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-position: center;
+#c3d_1
+{
+  height:50vh;
+  width:50vw;
+  background-color:rgba(0,0,0,0);
+  border-style: inset;
+  border-radius:10px;
+  border-width: 0vh 0vh 0vh 3vh;
+  border-left-color: black;
+  color:black;
+  text-align: left;
+  line-height:2.55vh;
+  position:relative;
 }
 
-#c4d_1{
-height:50vh;
-width:50vw;
-background-color:rgba(0,0,0,0);
-border-style: inset;
-border-radius:0px;
-border-width: 0vh 0vh 0vh 0.5vh;
-border-left-color: white;
-color:black;
-text-align: left;
-line-height:2.55vh;
-position:relative;
+#c4d_1
+{
+  height:50vh;
+  width:50vw;
+  background-color:rgba(0,0,0,0);
+  border-style: inset;
+  border-radius:0px;
+  border-width: 0vh 0vh 0vh 0.5vh;
+  border-left-color: white;
+  color:black;
+  text-align: left;
+  line-height:2.55vh;
+  position:relative;
 }
 
-a:link {
+#loading 
+{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 1);
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+a:link 
+{
   text-decoration: none;
 }
 
@@ -300,44 +328,39 @@ a:link {
 
 <script type="application/javascript">
 
-window.addEventListener("orientationchange", function() {
-  // Announce the new orientation number
-  if(window.innerHeight <= window.innerWidth){
-    //alert("Please use Landscape!");
-    //document.getElementById("RHS").style.display = "block";
-}else{//document.getElementById("wrapper").style.display = "block";
-}
-    
-}, true);
-
-
-function onReady(callback) {
-    var intervalID = window.setInterval(checkReady, 1000);
-
-    function checkReady() {
-        if (document.getElementsByTagName('body')[0] !== undefined) {
-            window.clearInterval(intervalID);
-            callback.call(this);
-        }
+function onReady(callback) 
+{
+  var intervalID = window.setInterval(checkReady, 1000);
+  function checkReady() 
+  {
+    if (document.getElementsByTagName('body')[0] !== undefined) 
+    {
+      window.clearInterval(intervalID);
+      callback.call(this);
     }
+  }
 }
 
-function show(id, value) {
-    document.getElementById(id).style.display = value ? 'block' : 'none';
+function show(id, value) 
+{
+  document.getElementById(id).style.display = value ? 'block' : 'none';
 }
 
-onReady(function () {
-    show('content1', true);
-    show('loading', false);
+onReady(function () 
+{
+  show('content1', true);
+  show('loading', false);
 });
   
-  function myFunction() {
+function myFunction() 
+{
   var w = document.getElementById("content1");
   var x = document.getElementById("content2");
   var y = document.getElementById("content3");
   var z = document.getElementById("content4");
   	
-  if (w.style.display === "block") {
+  if (w.style.display === "block") 
+ {
     w.style.display = "block";
     x.style.display = "none";
     y.style.display = "none";
@@ -347,7 +370,8 @@ onReady(function () {
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
   } 
-  else if (x.style.display === "block") {
+  else if (x.style.display === "block") 
+  {
     w.style.display = "block";
     x.style.display = "none";
     y.style.display = "none";
@@ -357,7 +381,8 @@ onReady(function () {
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
   }
-  else if (y.style.display === "block") {
+  else if (y.style.display === "block") 
+  {
     w.style.display = "none";
     x.style.display = "block";
     y.style.display = "none";
@@ -367,7 +392,8 @@ onReady(function () {
     document.getElementById("third").style.borderBottom = "none";
     document.getElementById("fourth").style.borderBottom = "none";
   }
-  else if (z.style.display === "block") {
+  else if (z.style.display === "block") 
+  {
     w.style.display = "none";
     x.style.display = "none";
     y.style.display = "block";
@@ -379,54 +405,61 @@ onReady(function () {
   }
   
 }
-function myFunction1() {
+
+function myFunction1() 
+{
     var w = document.getElementById("content1");
     var x = document.getElementById("content2");
     var y = document.getElementById("content3");
     var z = document.getElementById("content4");
 	
-  if (w.style.display === "block") {
-    w.style.display = "none";
-    x.style.display = "block";
-    y.style.display = "none";
-    z.style.display = "none";
+  if (w.style.display === "block") 
+  {
+   w.style.display = "none";
+   x.style.display = "block";
+   y.style.display = "none";
+   z.style.display = "none";
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
   } 
-  else if (x.style.display === "block") {
-    w.style.display = "none";
-    x.style.display = "none";
-    y.style.display = "block";
-    z.style.display = "none";
+  else if (x.style.display === "block") 
+  {
+   w.style.display = "none";
+   x.style.display = "none";
+   y.style.display = "block";
+   z.style.display = "none";
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
   }
-  else if (y.style.display === "block") {
-    w.style.display = "none";
-    x.style.display = "none";
-    y.style.display = "none";
-    z.style.display = "block";
+  else if (y.style.display === "block") 
+  {
+   w.style.display = "none";
+   x.style.display = "none";
+   y.style.display = "none";
+   z.style.display = "block";
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
   }
-  else if (z.style.display === "block") {
-    w.style.display = "none";
-    x.style.display = "none";
-    y.style.display = "none";
-    z.style.display = "block";
+  else if (z.style.display === "block") 
+  {
+   w.style.display = "none";
+   x.style.display = "none";
+   y.style.display = "none";
+   z.style.display = "block";
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
   }
   
-}	
+}
+	
 function start() {
   var w = document.getElementById("content1");
   w.style.display = "block";
@@ -436,11 +469,12 @@ function start() {
   y.style.display = "none";
   var z = document.getElementById("content4");
   z.style.display = "none";
-   document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
-   document.getElementById("second").style.borderBottom = "none";
-   document.getElementById("third").style.borderBottom = "none";
-   document.getElementById("fourth").style.borderBottom = "none";
+  document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
+  document.getElementById("second").style.borderBottom = "none";
+  document.getElementById("third").style.borderBottom = "none";
+  document.getElementById("fourth").style.borderBottom = "none";
 }
+
 function mousy1start()
 {
    document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
@@ -448,6 +482,7 @@ function mousy1start()
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none"; 
 }
+
 function mousy2start()
 {
    document.getElementById("first").style.borderBottom = "none";
@@ -455,6 +490,7 @@ function mousy2start()
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
 }
+
 function mousy3start()
 {
    document.getElementById("first").style.borderBottom = "none";
@@ -462,6 +498,7 @@ function mousy3start()
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
 }
+
 function mousy4start()
 {
    document.getElementById("first").style.borderBottom = "none";
@@ -469,25 +506,33 @@ function mousy4start()
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
 }
-function mycall1(){   mousy1start();
+
+function mycall1()
+{
+   mousy1start();
    document.getElementById("content1").style.display = "block";
    document.getElementById("content2").style.display = "none";
    document.getElementById("content3").style.display = "none";
    document.getElementById("content4").style.display = "none";
 }
-function mycall2(){   mousy2start();
+function mycall2()
+{
+   mousy2start();
    document.getElementById("content1").style.display = "none";
    document.getElementById("content2").style.display = "block";
    document.getElementById("content3").style.display = "none";
    document.getElementById("content4").style.display = "none";
 }
-function mycall3(){   mousy3start();
+function mycall3()
+{
+   mousy3start();
    document.getElementById("content1").style.display = "none";
    document.getElementById("content2").style.display = "none";
    document.getElementById("content3").style.display = "block";
    document.getElementById("content4").style.display = "none";
 }
-function mycall4(){
+function mycall4()
+{
    document.getElementById("content1").style.display = "none";
    document.getElementById("content2").style.display = "none";
    document.getElementById("content3").style.display = "none";
@@ -500,116 +545,155 @@ function mousyend()
     var y = document.getElementById("content3");
     var z = document.getElementById("content4");
 	
-  if (w.style.display === "block") {
+  if (w.style.display === "block") 
+  {
    document.getElementById("first").style.borderBottom = "thick solid #FFFFFF";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
   } 
-  else if (x.style.display === "block") {
+  else if (x.style.display === "block") 
+  {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "thick solid #FF0000";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "none";
   }
-  else if (y.style.display === "block") {
+  else if (y.style.display === "block") 
+  {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "thick solid #FF0000";
    document.getElementById("fourth").style.borderBottom = "none";
   }
-  else if (z.style.display === "block") {
+  else if (z.style.display === "block") 
+  {
    document.getElementById("first").style.borderBottom = "none";
    document.getElementById("second").style.borderBottom = "none";
    document.getElementById("third").style.borderBottom = "none";
    document.getElementById("fourth").style.borderBottom = "thick solid #FF0000";
+  }
 }
-}
+
 </script>
-</head><body onload="start()" id="bdy">
+
+</head>
+
+<body onload="start()" id="bdy">
+
 <div id="wrapper" class="center">
+  
   <div onmouseover="mousy1start()" onmouseout="mousyend()" onclick="mycall1()" class="button" id="first">HOME</div>
   <div onmouseover="mousy2start()" onmouseout="mousyend()" onclick="mycall2()" class="button" id="second">ABOUT</div>
   <div onmouseover="mousy3start()" onmouseout="mousyend()" onclick="mycall3()" class="button" id="third">EDUCATION</div>
   <div onmouseover="mousy4start()" onmouseout="mousyend()" onclick="mycall4()" class="button" id="fourth">PROJECTS</div>
+
 </div>
-</div>
-<center>
-</center>
+
 <div onmouseover="var myTimer=setTimeout('myFunction()', 400)"
 onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 
 </div>
+
 <div id="content1" class="data">
-<center>
-<br><br><br><br><br><br>
-<div id="borderbox">
-<h1 style="font-size:10.5vw;"><span style="color: red">H</span>ello.</h1>
-<h1 style="font-size:4.75vw;">I am <u><span style="color: red">A</span>shish</u></h1>
-<br><br>
-<h1 style="font-size:1.75vw;">Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
-<div id="text" class="box">
-<h2 style="font-size:1.25vw;">I am an undergraduate E.C.E student. 
-I am passionate about my career and 
-to me my time is very important. I 
-love to engage myself by doing projects 
-and learning new concepts. I love to work 
-with people and I believe anybody can 
-learn and progress efficiently by 
-becoming a team player.</h2>
-</div></div></div></center>
+
+  <center>
+  <br><br><br><br><br><br>
+  <div id="borderbox">
+
+    <h1 style="font-size:10.5vw;"><span style="color: red">H</span>ello.</h1>
+    <h1 style="font-size:4.75vw;">I am <u><span style="color: red">A</span>shish</u></h1>
+    <br><br>
+    <h1 style="font-size:1.75vw;">Intern <span style="color: red">@</span> Cognizant</h1><br><br><br><br>
+    <div id="text" class="box">
+
+      <h2 style="font-size:1.25vw;">I am an undergraduate E.C.E student. I am passionate about my career and to me my time is very important. I love to engage myself by doing projects and learning new concepts. I love to work with people and I believe anybody can learn and progress efficiently by becoming a team player.</h2>
+
+    </div>
+
+  </div>
+
+</div>
 </center>
+
 <div id="content2" class="data">
-<center>
-<br><br><br><br><br><br><br><br><br><br><br>
-<div id="content2_data"><br>
-<center><div id="c2data">
-<span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">B</span>asic Info     :</b></span><br>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;Ashish V Nair</span>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Contact&nbsp;&nbsp;:</b>&nbsp;+91-7358337020</span>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Email ID&nbsp;:</b>&nbsp;ashishnair.oph@gmail.com</span>
-<br><br>
-<span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">C</span>reative Sector     :</b></span><br>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Photography&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.instagram.com/akatsuki_oshiro" style="color:#80333E">Instagram</a></b></span>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Personal Blog&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://octainphantom.wordpress.com" style="color:#80333E">Wordpress</a></b></span>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>OpenSource&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.github.com/akatsukioshiro" style="color:#80333E">Github</a></b></span>
-<span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Video&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.youtube.com/chanel/UCU_G-MYyAo2ssr9YLqqlXzw" style="color:#80333E">YouTube</a></b></span>
-<br><span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Modifications : </b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>1.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94715" style="color:#80333E">TESV-Skyrim : Eternal Sleep</a></b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>2.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94930" style="color:#80333E">TESV-Skyrim : Curiosity Curse</a></b></span>
-&nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>3.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/95035" style="color:#80333E">TESV-Skyrim : Allegiant Dead</a></b></span>
 
-</div></center>
+  <center>
+  <br><br><br><br><br><br><br><br><br><br><br>
+  <div id="content2_data"><br>
+
+    <center>
+    <div id="c2data">
+
+      <span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">B</span>asic Info     :</b></span><br>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>&nbsp;Ashish V Nair</span>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Contact&nbsp;&nbsp;:</b>&nbsp;+91-7358337020</span>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Email ID&nbsp;:</b>&nbsp;ashishnair.oph@gmail.com</span>
+      <br><br>
+      <span style="font-size:1.35vw;font-family:Arial;"><br>&nbsp; <b><span style="color: red">C</span>reative Sector     :</b></span><br>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Photography&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.instagram.com/akatsuki_oshiro" style="color:#80333E">Instagram</a></b></span>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Personal Blog&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://octainphantom.wordpress.com" style="color:#80333E">Wordpress</a></b></span>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>OpenSource&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.github.com/akatsukioshiro" style="color:#80333E">Github</a></b></span>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Video&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.youtube.com/chanel/UCU_G-MYyAo2ssr9YLqqlXzw" style="color:#80333E">YouTube</a></b></span>
+      <br>
+      <span style="font-size:1.06vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>Game Modifications : </b></span>
+      &nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>1.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94715" style="color:#80333E">TESV-Skyrim : Eternal Sleep</a></b></span>
+      &nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>2.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/94930" style="color:#80333E">TESV-Skyrim : Curiosity Curse</a></b></span>
+      &nbsp;&nbsp;&nbsp;<span style="font-size:0.925vw;font-family:Arial;"><br>&nbsp;&nbsp; <b>3.&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;<a href="https://www.nexusmods.com/skyrim/mods/95035" style="color:#80333E">TESV-Skyrim : Allegiant Dead</a></b></span>
+
+    </div>
+    </center>
+
+  </div>
+  </center>
+
 </div>
-</center>
-</div>
+
 <div id="content3" class="data"><br><br><br><br><br><br><br><br><br><br>
-<center><div id="c3d"><br>
-<div id="c3d_1"><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Under Graduation :</b></span><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2015 - 2019 :</span>&nbsp SRM Institute of Science and Technology</b></span><br><br><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 12th :</b></span><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2014 - 2015 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 10th :</b></span><br>
-<span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2012 - 2013 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
+
+  <center>
+  <div id="c3d">
+
+    <br>
+    <div id="c3d_1"><br><br>
+
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Under Graduation :</b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2015 - 2019 :</span>&nbsp SRM Institute of Science and Technology</b></span><br><br><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 12th :</b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2014 - 2015 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><b>&nbsp;&nbsp;&nbsp;Class 10th :</b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: black;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: red;font-size:1.45vw;">2012 - 2013 :</span>&nbsp Delhi Public School Dwarka</b></span><br><br><br><br>
+    
+    </div>
+      
+  </div>
+  </center>
+
 </div>
-</div></center>
-</div>
+
 <div id="content4" class="data"><br><br><br><br><br><br><br><br><br>
-<center><div id="c4d"><br>
-<div id="c4d_1"><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp AUSB for Driverless Transportation</b></span><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">N<span style="color: #9507BA">ov</span> - D<span style="color: #9507BA">ec</span> </span>2018 :</span>&nbsp Gaming Projects</b></span><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">ul</span> - N<span style="color: #9507BA">ov</span> </span>2018 :</span>&nbsp Robotic Vision using Object Detection</b></span><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">un</span> - J<span style="color: #9507BA">ul</span> </span>2018 :</span>&nbsp Desktop Phonebook Application</b></span><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2018 :</span>&nbsp PWM Sine Wave Inverter</b></span><br><br>
-<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2017 :</span>&nbsp MCQ Test Application</b></span><br><br>
 
+  <center>
+  <div id="c4d">
+  <br>
+
+    <div id="c4d_1">
+
+      <br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp AUSB for Driverless Transportation</b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">N<span style="color: #9507BA">ov</span> - D<span style="color: #9507BA">ec</span> </span>2018 :</span>&nbsp Gaming Projects</b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">ul</span> - N<span style="color: #9507BA">ov</span> </span>2018 :</span>&nbsp Robotic Vision using Object Detection</b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">un</span> - J<span style="color: #9507BA">ul</span> </span>2018 :</span>&nbsp Desktop Phonebook Application</b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2018 :</span>&nbsp PWM Sine Wave Inverter</b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2017 :</span>&nbsp MCQ Test Application</b></span><br><br>
+
+    </div>
+
+  </div>
+  </center>
 
 </div>
-</div></center>
 
-</div>
 <div onmouseover="var myTimer=setTimeout('myFunction1()', 400)"
 onmouseout="clearTimeout(myTimer)" id="RHS" class="controller">
 
