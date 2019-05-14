@@ -349,7 +349,7 @@ function show(id, value)
 onReady(function () 
 {
   show('content1', true);
-  show('loading', false);
+  //show('loading', false);
 });
   
 function myFunction() 
@@ -473,6 +473,8 @@ function start() {
   document.getElementById("second").style.borderBottom = "none";
   document.getElementById("third").style.borderBottom = "none";
   document.getElementById("fourth").style.borderBottom = "none";
+  document.getElementsByTagName("d1")[0].style.display = "block";
+	document.getElementsByTagName("d2")[0].style.display = "none";
 }
 
 function mousy1start()
@@ -575,6 +577,30 @@ function mousyend()
   }
 }
 
+function html_exp()
+{
+	document.getElementsByTagName("d1")[0].style.display = "none";
+	document.getElementsByTagName("d2")[0].style.display = "block";
+   	
+}
+function html_exp1()
+{
+	document.getElementsByTagName("d1")[0].style.display = "block";
+	document.getElementsByTagName("d2")[0].style.display = "none";
+   	
+}
+function corer(a)
+{
+	a.style.color="#F49DDC";
+}
+function corer1(a)
+{
+	a.style.color="white";
+}
+function corer2(a)
+{
+	a.style.color="#CA0AFC";
+}
 </script>
 
 </head>
@@ -671,7 +697,7 @@ onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 
 </div>
 
-<div id="content4" class="data"><br><br><br><br><br><br><br><br><br>
+<div id="content4" class="data"><br><br><br><br><br><br><br><br><br><br><br>
 
   <center>
   <div id="c4d">
@@ -679,15 +705,40 @@ onmouseout="clearTimeout(myTimer)" id="LHS" class="controller">
 
     <div id="c4d_1">
 
-      <br><br>
-      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp AUSB for Driverless Transportation</b></span><br><br>
+      <d2>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;">&nbsp <span onmouseover="corer(this)" onmouseout="corer2(this)" onclick="html_exp1()">Javascript Experiments : <span style="color:white;font-size:1.0vw;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(compare Inspect Element>>Elements Tab & Inspect Element>>Sources Tab)</span></span></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">1. </span></span><a href="./lazyStrap Buttons/A.html" style="color:white">&nbsp lazyStrap Buttons</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">2. </span></span><a href="./lazyB Instant Buttons/Index.html" style="color:white">&nbsp lazyB Instant Buttons</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">3.</span></span><a href="./lazy Attribute ~ Alpha Stage/Test.html" style="color:white">&nbsp lazy Attribute ~ Alpha Stage</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">4.</span></span><a href="./Simplicity ~ Alpha Stage/Index.html" style="color:white">&nbsp Simplicity ~ Alpha Stage</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">5.</span></span><a href="./Instant Websites ~ Beta Stage/index.html" style="color:white">&nbsp Instant Websites ~ Beta Stage</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">6.</span></span><a href="./HTML WEBcodes/index.html" style="color:white">&nbsp HTML WEBcodes</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">7.</span></span><a href="./SML/main.html" style="color:white">&nbsp SML</a></b></span><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">8.</span></span>&nbsp condensed -</b></span><br>
+	<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">&nbsp;&nbsp;&nbsp;<a href="./condensed/main.html" style="color:white">i.</span></span>&nbsp Example Website </a></b></span>
+	<span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">&nbsp;&nbsp;&nbsp;<a href="./condensed/online live compiler/main.html" style="color:white">ii.</span></span> Syntax Highlighter for 'condensed' using 'condensed'</a></b></span><br>
+	</d2>
+    <d1>
+
+      
+      <span style="font-size:1.35vw;font-family:Arial;color: white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">F<span style="color: #9507BA">eb</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp <span onmouseover="corer(this)" onmouseout="corer1(this)" onclick="html_exp()">Javascript Experiments</span></b></span><br><br>
+      <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2019 :</span>&nbsp <a href="https://www.youtube.com/watch?v=lg6hV2A-0GE" onmouseover="corer(this)" onmouseout="corer1(this)" style="color:white">Self Balancing Bike</a></b></span><br><br>
       <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">N<span style="color: #9507BA">ov</span> - D<span style="color: #9507BA">ec</span> </span>2018 :</span>&nbsp Gaming Projects</b></span><br><br>
       <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">ul</span> - N<span style="color: #9507BA">ov</span> </span>2018 :</span>&nbsp Robotic Vision using Object Detection</b></span><br><br>
       <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">un</span> - J<span style="color: #9507BA">ul</span> </span>2018 :</span>&nbsp Desktop Phonebook Application</b></span><br><br>
       <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2018 :</span>&nbsp PWM Sine Wave Inverter</b></span><br><br>
       <span style="font-size:1.35vw;font-family:Arial;color: white;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><span style="color: #CA0AFC;font-size:1.75vw;"><span style="color: #CA0AFC;font-size:1.25vw;">J<span style="color: #9507BA">an</span> - A<span style="color: #9507BA">pr</span> </span>2017 :</span>&nbsp MCQ Test Application</b></span><br><br>
-
+	</d1>
     </div>
+    
+    
+
+ 
+  
+
+    
+    
+    
 
   </div>
   </center>

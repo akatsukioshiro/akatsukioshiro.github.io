@@ -1,0 +1,34 @@
+body
+{
+background-color:black;
+margin:0;
+}
+.obt1
+{
+background-color:black;
+height:10vh;
+width:auto;
+float:left;
+}
+
+.but0
+{
+background-color:green;
+height:10vh;
+width:20vw;
+text-align:center;
+vertical-align: middle;
+line-height:10vh;
+float:left;
+}
+
+.but6
+{
+background-color:green;
+height:10vh;
+width:40vw;
+text-align:center;
+vertical-align: middle;
+line-height:10vh;
+float:left;
+}

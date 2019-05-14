@@ -1,0 +1,25 @@
+.type1
+{
+background-image: linear-gradient(-225deg, #231557 0%, #44107A 29%, #FF1361 67%, #FFF800 100%);
+box-shadow: 0px 0px 21px black inset;
+}
+.type2
+{
+background: linear-gradient(to right, rgb(0, 242, 96), rgb(5, 117, 230));
+box-shadow: 0px 0px 21px black inset;
+}
+.type3
+{
+background: linear-gradient(to right, rgb(255, 0, 132), rgb(51, 0, 27));
+box-shadow: 0px 0px 21px black inset;
+}
+.type4
+{
+background: linear-gradient(to right, rgb(120, 2, 6), rgb(6, 17, 97));
+box-shadow: 0px 0px 21px black inset;
+}
+.type5
+{
+background: linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146));
+box-shadow: 0px 0px 21px black inset;
+}

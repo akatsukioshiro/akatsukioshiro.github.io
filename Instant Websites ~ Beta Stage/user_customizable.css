@@ -1,0 +1,48 @@
+navbar
+{
+background-color:white;
+}
+box
+{
+background-color:grey;
+}
+logo
+{
+height:100%;
+width:20vw;
+float:left;
+}
+name
+{
+height:100%;
+width:40vw;
+float:left;
+}
+buttons
+{
+background-color:white;
+height:100%;
+width:40vw;
+display:flex;
+}
+.buttons
+{
+background-color:black;
+color:white;
+height:7vh;
+line-height:7vh;
+text-align:center;
+width:6vw;
+display:block;
+margin: auto;
+}
+center_div
+{
+background-color:white;
+display:block;
+position:fixed;
+top: 50%;
+left: 50%;
+margin-top: -9em;  
+margin-left: -15em;
+}

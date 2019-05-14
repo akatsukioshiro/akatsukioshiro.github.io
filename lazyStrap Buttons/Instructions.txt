@@ -1,0 +1,20 @@
+INSTRUCTIONS :
+
+1. <oph_button_type_1> is button-array opening tag.
+2. </oph_button_type_1> is button-array closing tag.
+3. <oph_button_type_1></oph_button_type_1> has following attributes : class,count,butnames,accesstype,access.
+4. "class" attribute can be used to help alter button container features using CSS file ie- B.css.
+5. "count" attribute can be used to specify number of buttons required.
+6. "butnames" attribute is used to give buttons their NAMES. Each button name must be separated by an "Underscore" (example BUTTON1_BUTTON2).
+7. Each button has a class attribute which starts from "but0".
+8. "access" attribute is useful in terms of onclick functionality of a button and links must be separated by "~" and if no link then type NULL(or anything random)
+9. "accesstype" attribute is useful to determine difference between "going to external page" vs "doing something within same page"
+10. if accesstype attribute is "outer" links like "google.com" will work.
+11. if accesstype attribute is "inner" then you must edit gigi function's name in event listener, and create new functions for each button with inner attribute with function names stored in array and make it dynamic to suite your needs.(JAVASCRIPT edit9ing is required for this attribute only!!!)
+12 "inner attribute will be utilized to do things like display:block or display:none on clicking button etc. Keep access attribute as NULL for this type."
+
+It is unnecessary to make changes to JavaScript file ie .js file.
+
+If you still couldn't properly utilize this tag then shutdown your PC and set it on fire.
+
+(DISCLAIMER : I am in no way responsible for any hardware or software or (any kind of) damages caused due to anything related to my code or my instrauctions or (everything I can think of).)

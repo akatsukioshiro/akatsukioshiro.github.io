@@ -1,0 +1,73 @@
+box
+{
+	background-color:rgba(0,0,0,0.3);
+}
+navbar
+{
+	background-color:white;
+	display:block;
+	height:10vh;
+	width:100vw;
+	position:fixed;
+}
+name
+{
+	background-color:grey;
+	display:inline-block;
+	height:10vh;
+	width:20%;
+	font: 15px arial, sans-serif;
+	font-size: 1.2rem;
+	text-align:center;
+	line-height:10vh;
+	float:left;
+}
+logo
+{
+	display:inline-block;
+	
+	
+	float:left;
+}
+buttons
+{
+	background-color:white;
+	display:flex;
+	height:10vh;
+	width:60%;
+	text-align:center;
+	font: 15px arial, sans-serif;
+	line-height:10vh;
+	float:left;
+}
+.buttons
+{
+	display:block;
+	background-color:white;
+	line-height:10vh;
+	text-transform: capitalize;
+	margin-left:auto;
+	margin-right:auto;
+}
+area
+{
+	display:block;
+	height:100%;
+	width:100%;
+}
+welcomenote
+{
+	background-color:white;
+	display:block;
+	height:18rem;
+	width:30rem;
+	padding:2rem;
+	font: 15px arial, sans-serif;
+	position:fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -9em;  
+	margin-left: -17em;
+
+
+}
