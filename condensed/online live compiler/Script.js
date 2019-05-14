@@ -340,7 +340,7 @@ if(document.getElementsByTagName("codecontent1")[0]!==undefined)
 	document.getElementsByTagName("codecontent")[0].addEventListener("keyup", callcolorer);
 	document.getElementsByTagName("codecontent")[0].addEventListener("paste", callerer);
 	var paster="notpasted";
-	// addEventListener support for IE8
+//	 addEventListener support for IE8
         function bindEvent(element, eventName, eventHandler) {
             if (element.addEventListener){
                 element.addEventListener(eventName, eventHandler, false);
@@ -348,17 +348,17 @@ if(document.getElementsByTagName("codecontent1")[0]!==undefined)
                 element.attachEvent('on' + eventName, eventHandler);
             }
         }
-	var xframe = document.createElement("IFRAME");
-	xframe.setAttribute("height","99%");
-	xframe.setAttribute("width","99%");
-	xframe.id='the_iframe';
-	//xframe.contentWindow.location = xframe.src;
-	xframe.setAttribute("sandbox","allow-same-origin allow-scripts allow-popups allow-forms");
- 	xframe.setAttribute("src", "./iframe.html");
-  	document.getElementsByTagName("outputpane")[0].appendChild(xframe);
+	//var xframe = document.createElement("IFRAME");
+	//xframe.setAttribute("height","99%");
+	//xframe.setAttribute("width","99%");
+	//xframe.id='the_iframe';
+	////xframe.contentWindow.location = xframe.src;
+	//xframe.setAttribute("sandbox","allow-same-origin allow-scripts allow-popups allow-forms");
+ 	//xframe.setAttribute("src", "./iframe.html");
+  	//document.getElementsByTagName("outputpane")[0].appendChild(xframe);
 	// Send a message to the child iframe
-        var iframeEl = document.getElementById('the_iframe'),
-            messageButton = document.getElementById('subut');
+        //var iframeEl = document.getElementById('the_iframe'),
+          //  messageButton = document.getElementById('subut');
             
         // Send a message to the child iframe
         var sendMessage = function(msg) {
