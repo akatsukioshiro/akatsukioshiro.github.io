@@ -67,7 +67,7 @@ fbody
 </style>
 </head>
 <body onload="start()">
-<navbar>
+<navbar id="navbar">
 <div_b id="div_b" class="navbutton">
 DIV
 </div_b>
@@ -90,12 +90,17 @@ RGBA<br>
 </svg>
 </rgb_box>
 </rgb_b>
+<pen_b id="pen_b" class="navbutton">
+PEN
+</pen_b>
 <a id="sub_b" class="navbutton" href="" download="Output_
 Webpage.html">
 SUB
 </a>
 </navbar>
 <fbody id="fbody">
+<svg id="pen" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; position: absolute;pointer-events:none;">
+</svg>
 </fbody>
 <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg" style="width: 95vw; height: 100%; position: absolute;">
 </svg>
@@ -121,6 +126,11 @@ var colorbox_b=0;
 var colorbox_a=0;
 var colorbox_last_y=0;
 var colorbox_finalcolor="";
+var pen=0;
+var pen_limiter="";
+var pen_drawtime="0";
+var pen_line_count=0;
+var pen_pid="";
 function svgbox(coord,c) 
 {
 	var nm="poly"+c;
@@ -220,6 +230,10 @@ function start()
 		{
 			console.log("1");
 		}
+		if(pen===1)
+		{
+			pen_drawtime="1";
+		}
 	});
 	document.documentElement.addEventListener("mouseup",function(e)
 	{
@@ -237,6 +251,11 @@ function start()
 		if(resize===0)pe.style.pointerEvents="none";
 		res_bin="0";
 		res_hold="";
+		if(pen===1)
+		{
+			pen_drawtime="0";
+			pen_poly(null,null,0);
+		}
 	});
 	document.documentElement.addEventListener("mousemove",function(e)
 	{
@@ -274,7 +293,21 @@ function start()
 			poly_colorizer(e);
 			console.log(colorbox_y);
 		}
+		else if(pen===1 && pen_limiter==="1")
+		{
+			var a=document.getElementById("cursor");
+			a.style.top=e.clientY+"px";
+			a.style.left=e.clientX+"px";
+			if(pen_drawtime==="1")pen_liner(e.clientX,e.clientY);	
+		}
 	});
+	function pen_liner(x,y)
+	{
+		var lin=document.getElementById(pen_pid).getAttribute("points");
+		lin=lin+x+","+y+" ";
+		var strokew="2.5px";
+		pen_poly(lin,strokew,1); 
+	}
 	function poly_colorizer(e)
 	{
 		var color_range=0;
@@ -691,6 +724,17 @@ document.getElementById("div_b").addEventListener("click",function(e)
 			document.getElementById("color_b").style.background="";
 			document.getElementById("rgb_b").style.display="";
 		}
+		else if(pen===1)
+		{
+			pen=0;
+			document.getElementById("fbody").style.cursor="";
+			document.getElementById("pen").style.cursor="";
+			document.getElementById("pen").style.pointerEvents="";
+			document.getElementById("pen_b").style.background="";
+			cursor();
+			pen_limiter="";
+		}
+
 
 	}
 	else if(divmake===1)
@@ -812,6 +856,27 @@ function div_control(e)
 		}
 	}
 }
+function pen_poly(lin,strokew,status) 
+{
+	if(status===0)
+	{
+		var newLine = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+		pen_pid="penpoly"+pen_line_count;
+		newLine.setAttribute('id',pen_pid);
+		newLine.setAttribute("stroke", "black");
+		newLine.setAttribute("fill","none");
+		newLine.setAttribute('points',"");
+		document.getElementById('pen').appendChild(newLine);
+		pen_line_count+=1;
+	}
+	else if(status===1)
+	{
+		var newLine=document.getElementById(pen_pid);
+		newLine.setAttribute("stroke-width",strokew);
+		newLine.setAttribute('points',lin);
+	}
+}
+	
 function color_sbox(x,y,c)
 {
 	var sx=x+10;
@@ -941,6 +1006,16 @@ function dragElement(elmnt,state)
 }
 document.getElementById("sub_b").addEventListener("click",function(event)
 {
+	if(pen===1)
+	{
+		pen=0;
+		document.getElementById("fbody").style.cursor="";
+		document.getElementById("pen").style.cursor="";
+		document.getElementById("pen").style.pointerEvents="";
+		document.getElementById("pen_b").style.background="";
+		cursor();
+		pen_limiter="";
+	}
 	var text="<!DOCTYPE html><html><head></head><body>"+document.getElementById("fbody").innerHTML+"</body></html>";
 	var data = new Blob([text], {type: 'text/html'});
 	var url = window.URL.createObjectURL(data);
@@ -989,6 +1064,17 @@ document.getElementById("drag_b").addEventListener("click",function(event)
 			document.getElementById("color_b").style.background="";
 			document.getElementById("rgb_b").style.display="";
 		}
+		else if(pen===1)
+		{
+			pen=0;
+			document.getElementById("fbody").style.cursor="";
+			document.getElementById("pen").style.cursor="";
+			document.getElementById("pen").style.pointerEvents="";
+			document.getElementById("pen_b").style.background="";
+			cursor();
+			pen_limiter="";
+		}
+
 
 	}
 	else if(drag===1)
@@ -1066,6 +1152,17 @@ document.getElementById("edit_b").addEventListener("click",function(event)
 			document.getElementById("color_b").style.background="";
 			document.getElementById("rgb_b").style.display="";
 		}
+		else if(pen===1)
+		{
+			pen=0;
+			document.getElementById("fbody").style.cursor="";
+			document.getElementById("pen").style.cursor="";
+			document.getElementById("pen").style.pointerEvents="";
+			document.getElementById("pen_b").style.background="";
+			cursor();
+			pen_limiter="";
+		}
+
 
 	}
 	else if(edit===1)
@@ -1116,6 +1213,17 @@ document.getElementById("res_b").addEventListener("click",function(event)
 			document.getElementById("color_b").style.background="";
 			document.getElementById("rgb_b").style.display="";
 		}
+		else if(pen===1)
+		{
+			pen=0;
+			document.getElementById("fbody").style.cursor="";
+			document.getElementById("pen").style.cursor="";
+			document.getElementById("pen").style.pointerEvents="";
+			document.getElementById("pen_b").style.background="";
+			cursor();
+			pen_limiter="";
+		}
+
 	}
 	else if(resize===1)
 	{
@@ -1175,6 +1283,16 @@ document.getElementById("color_b").addEventListener("click",function(event)
 			res_cursor="";
 			console.log("Resize Mode Off");
 		}
+		else if(pen===1)
+		{
+			pen=0;
+			document.getElementById("fbody").style.cursor="";
+			document.getElementById("pen").style.cursor="";
+			document.getElementById("pen").style.pointerEvents="";
+			document.getElementById("pen_b").style.background="";
+			cursor();
+			pen_limiter="";
+		}
 	}
 	else if(color===1)
 	{
@@ -1190,6 +1308,104 @@ document.getElementById("color_b").addEventListener("click",function(event)
 		document.getElementById("color_b").style.background="";
 		document.getElementById("rgb_b").style.display="";
 	}
+});
+document.getElementById("pen_b").addEventListener("click",function(event)
+{
+	if(pen===0)
+	{
+		if(drag===1)
+		{
+			drag=0;
+			document.getElementById("drag_b").style.background="";
+			fbody_select_all_drag();
+			console.log("Drag Mode Off");
+		}
+		else if(edit===1)
+		{
+			edit=0;
+			document.getElementById("edit_b").style.background="";
+			fbody_select_all_edit(edit);
+			console.log("Edit Mode Off");
+		}
+		else if(divmake===1)
+		{
+			divmake=0;
+			document.getElementById("div_b").style.background="";
+		}
+		else if(resize===1)
+		{
+			res_poly5_in_out="";
+			resize=0;
+			var pe=document.getElementById("svg");
+			pe.style.pointerEvents="none";
+			document.getElementById("res_b").style.background="";
+			res_cursor="";
+			console.log("Resize Mode Off");
+		}
+		else if(color===1)
+		{
+			color=0;
+			if(document.getElementsByTagName("polygon").length!==0)remove_svgbox(1);//poly5
+			colorbox_id="";
+			colorbox_y=0;
+			colorbox_r=0;
+			colorbox_g=0;
+			colorbox_b=0;
+			colorbox_a=0;
+			colorbox_last_y=0;
+			document.getElementById("color_b").style.background="";
+			document.getElementById("rgb_b").style.display="";
+		}
+		pen=1;
+		document.getElementById("fbody").style.cursor="none";
+		document.getElementById("pen").style.cursor="none";
+		document.getElementById("pen").style.pointerEvents="auto";
+		document.getElementById("pen_b").style.background="red";
+		cursor();
+	}
+	else if(pen===1)
+	{
+		pen=0;
+		document.getElementById("fbody").style.cursor="";
+		document.getElementById("pen").style.cursor="";
+		document.getElementById("pen").style.pointerEvents="";
+		document.getElementById("pen_b").style.background="";
+		cursor();
+		pen_limiter="";
+		pen_drawtime="0";
+		pen_pid="";
+	}
+});
+function cursor()
+{
+	if(pen===1)
+	{
+		var div1 = document.createElement("cursor");
+		div1.id = "cursor";
+		div1.style.width = "5px";
+		div1.style.height = "5px";
+		div1.style.background = "black";
+		div1.style.position = "absolute";
+		div1.style.left = "1px";
+		div1.style.top = "1px";
+		div1.style.borderRadius = "50%";
+		div1.style.zIndex = 5;
+		pen_poly(null,null,0);
+		document.getElementById("fbody").appendChild(div1);
+	}
+	else if(pen===0)
+	{
+		var element=document.getElementById("cursor");
+		element.parentNode.removeChild(element); 
+	}
+}
+document.getElementById("pen").addEventListener("mouseover",function(event)
+{
+	pen_limiter="1";
+});
+document.getElementById("pen").addEventListener("mouseout",function(event)
+{
+	pen_limiter="0";
 });
 </script>
 </body>
