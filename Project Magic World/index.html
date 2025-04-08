@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tile World Walk</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+    }
+    #world {
+      position: absolute;
+      width: 10240px;
+      height: 10240px;
+      background-image: url('environment/grass.png');
+      background-repeat: repeat;
+      background-size: 64px 64px;
+    }
+    .tile-object {
+      position: absolute;
+      width: 51.2px;
+      height: 51.2px;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center;
+      pointer-events: none;
+    }
+    .npc {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      background-size: 256px 256px;
+      image-rendering: pixelated;
+      z-index: 5;
+    }
+    #character {
+      position: fixed;
+      width: 64px;
+      height: 64px;
+      background-image: url('characters/char_1.png');
+      background-size: 256px 256px;
+      image-rendering: pixelated;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+<div id="world"></div>
+<div id="character"></div>
+<div id="messageBox" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  background:rgba(0,0,0,0.9);color:#fff;padding:20px 30px;border-radius:10px;
+  font-family:sans-serif;font-size:18px;display:none;max-width:80vw;z-index:9999;
+  box-shadow:0 0 20px rgba(255,255,255,0.3);">
+  <span id="messageContent"></span><br><br>
+  <button style="cursor:pointer" onclick="hideMessage()">Close</button>
+</div>
+<!-- [KEEP THE EXISTING HTML/CSS CODE UNCHANGED ABOVE] -->
+<script>
+let isAttacking = false;
+let attackSheet = 'characters/char_1_attack.png';
+let walkSheet = 'characters/char_1.png';
+
+const TILE_SIZE = 51.2;
+const MAP_SIZE = 10240;
+const MAP_TILES = 200;
+const PLAYER_SIZE = 64;
+const MOVE_STEP = 10;
+const EDGE_BUFFER = 50;
+
+const world = document.getElementById('world');
+const char = document.getElementById('character');
+
+let playerX = 5000;
+let playerY = 5000;
+let frameX = 0, frameY = 0;
+let cameraX = playerX - window.innerWidth / 2;
+let cameraY = playerY - window.innerHeight / 2;
+let currentMessage = null;
+
+function showMessage(msg) {
+  document.getElementById("messageContent").innerHTML = msg;
+  document.getElementById("messageBox").style.display = "block";
+}
+function hideMessage() {
+  document.getElementById("messageBox").style.display = "none";
+  currentMessage = null;
+  // Restore any NPC paused for interaction.
+  npcObjects.forEach(npc => {
+    if (npc.dataset.behavior === "talking" && npc.dataset.previousBehavior) {
+      npc.dataset.behavior = npc.dataset.previousBehavior;
+      delete npc.dataset.previousBehavior;
+    }
+  });
+}
+
+function isBlockedByPlayer(x, y) {
+  return (
+    x + 64 > playerX &&
+    x < playerX + PLAYER_SIZE &&
+    y + 64 > playerY &&
+    y < playerY + PLAYER_SIZE
+  );
+}
+
+// === NPC Setup ===
+const npcList = [
+  // Idle NPC: remains static at [110,110]
+  ['characters/char_2.png', 'block', 'idle', [110, 110], null, "Hey There! <br><br>Hope your day goes well !"],
+  // Walking NPC: patrols between [90,90] and [110,95]
+  ['characters/char_3.png', 'block', 'walk', [90, 90], [110, 95], "Good Day! <br><br>Walking is good for health !!!"]
+];
+
+const npcObjects = [];
+npcList.forEach(([img, block, behavior, from, to, message]) => {
+  const npc = document.createElement('div');
+  npc.className = 'npc';
+  npc.style.backgroundImage = `url('${img}')`;
+  npc.dataset.block = block;
+  npc.dataset.behavior = behavior;
+  npc.dataset.message = message;
+  npc.dataset.frame = '0';
+  npc.dataset.state = 'forward';
+  npc.dataset.facing = 'down';
+  npc.dataset.path = to ? JSON.stringify([from, to]) : null;
+  npc.dataset.posX = from[0] * TILE_SIZE;
+  npc.dataset.posY = from[1] * TILE_SIZE;
+  npc.style.left = `${npc.dataset.posX}px`;
+  npc.style.top = `${npc.dataset.posY}px`;
+  world.appendChild(npc);
+  npcObjects.push(npc);
+});
+
+// === Idle NPC Animation (only if behavior is idle) ===
+setInterval(() => {
+  npcObjects.forEach(npc => {
+    if (npc.dataset.behavior !== 'idle') return;
+    let frame = (parseInt(npc.dataset.frame) + 1) % 4;
+    npc.dataset.frame = frame;
+    // Alternate between row 1 (left) and row 2 (right)
+    let row = (frame % 2 === 0) ? 1 : 2;
+    npc.style.backgroundPosition = `-${frame * 64}px -${row * 64}px`;
+  });
+}, 500);
+
+
+// === Walking NPC Logic (only if behavior is walk) ===
+setInterval(() => {
+  npcObjects.forEach(npc => {
+    if (npc.dataset.behavior !== 'walk') return;
+    const speed = 10;
+    const path = JSON.parse(npc.dataset.path);
+    const state = npc.dataset.state || 'forward';
+    const [from, to] = state === 'forward' ? path : [path[1], path[0]];
+    let posX = parseFloat(npc.dataset.posX);
+    let posY = parseFloat(npc.dataset.posY);
+    const targetX = to[0] * TILE_SIZE;
+    const targetY = to[1] * TILE_SIZE;
+    let dx = targetX - posX;
+    let dy = targetY - posY;
+    let moveX = 0, moveY = 0;
+    let dirRow = 0;
+    
+    // Primary movement: prefer horizontal if |dx| > |dy|, else vertical.
+    if (Math.abs(dx) > 1 && Math.abs(dx) >= Math.abs(dy)) {
+      moveX = dx > 0 ? Math.min(speed, dx) : Math.max(-speed, dx);
+      dirRow = moveX > 0 ? 2 : 1;
+      npc.dataset.facing = moveX > 0 ? 'right' : 'left';
+    } else if (Math.abs(dy) > 1) {
+      moveY = dy > 0 ? Math.min(speed, dy) : Math.max(-speed, dy);
+      dirRow = moveY > 0 ? 0 : 3;
+      npc.dataset.facing = moveY > 0 ? 'down' : 'up';
+    } else {
+      // Target reached; switch patrol direction.
+      npc.dataset.state = state === 'forward' ? 'backward' : 'forward';
+      return;
+    }
+    
+    let nextX = posX + moveX;
+    let nextY = posY + moveY;
+    
+    // Check if player's blocking the path.
+    if (isBlockedByPlayer(nextX, nextY)) {
+      let alternatives = [];
+      // If primary movement is horizontal, try vertical detours.
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        if (!isBlockedByPlayer(posX, posY + speed)) {
+          alternatives.push({ moveX: 0, moveY: speed, dirRow: 0, facing: 'down' });
+        }
+        if (!isBlockedByPlayer(posX, posY - speed)) {
+          alternatives.push({ moveX: 0, moveY: -speed, dirRow: 3, facing: 'up' });
+        }
+      } else {
+        // If primary movement is vertical, try horizontal detours.
+        if (!isBlockedByPlayer(posX + speed, posY)) {
+          alternatives.push({ moveX: speed, moveY: 0, dirRow: 2, facing: 'right' });
+        }
+        if (!isBlockedByPlayer(posX - speed, posY)) {
+          alternatives.push({ moveX: -speed, moveY: 0, dirRow: 1, facing: 'left' });
+        }
+      }
+      if (alternatives.length > 0) {
+        // Pick the alternative that minimizes the distance to the target.
+        let bestAlt = alternatives[0];
+        let bestDist = Infinity;
+        alternatives.forEach(alt => {
+          let testX = posX + alt.moveX;
+          let testY = posY + alt.moveY;
+          let newDx = targetX - testX;
+          let newDy = targetY - testY;
+          let dist = Math.sqrt(newDx * newDx + newDy * newDy);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestAlt = alt;
+          }
+        });
+        moveX = bestAlt.moveX;
+        moveY = bestAlt.moveY;
+        dirRow = bestAlt.dirRow;
+        npc.dataset.facing = bestAlt.facing;
+      } else {
+        // No alternative available, so pause for 2 seconds.
+        if (npc.dataset.behavior !== "talking") {
+          npc.dataset.previousBehavior = npc.dataset.behavior;
+          npc.dataset.behavior = "talking";
+          npc.interactionTimeout = setTimeout(() => {
+            if (npc.dataset.behavior === "talking") {
+              npc.dataset.behavior = npc.dataset.previousBehavior;
+              delete npc.dataset.previousBehavior;
+            }
+          }, 2000);
+        }
+        return; // Do not update position this frame.
+      }
+    }
+    
+    // Animate the NPC.
+    let frame = (parseInt(npc.dataset.frame) + 1) % 4;
+    npc.dataset.frame = frame;
+    posX += moveX;
+    posY += moveY;
+    npc.dataset.posX = posX;
+    npc.dataset.posY = posY;
+    npc.style.left = `${posX}px`;
+    npc.style.top = `${posY}px`;
+    npc.style.backgroundPosition = `-${frame * 64}px -${dirRow * 64}px`;
+  });
+}, 1000 / 15);
+
+
+
+// === Object Map + Rendering (unchanged) ===
+const objectMap = Array.from({ length: MAP_TILES }, () => Array(MAP_TILES).fill(null));
+objectMap[5][5] = ['environment/rock.png', 'block', '5px', '0px', '10px', '3px'];
+objectMap[10][10] = ['environment/rock.png', 'unblock'];
+objectMap[12][12] = ['environment/rock.png', 'block', '5px', '0px', '10px', '3px'];
+objectMap[100][100] = ['environment/citi_banner.png', 'block', '18px', '5px', '5px', '0px', "Welcome to Citi World !!! <br><br>Have fun!"];
+for (let i = 0; i < 20; i++) {
+  objectMap[101][90 + i] = ['environment/road.png', 'unblock'];
+  objectMap[81][90 + i] = ['environment/road.png', 'unblock'];
+  objectMap[81 + i][90] = ['environment/road_vert.png', 'unblock'];
+  objectMap[81 + i][109] = ['environment/road_vert.png', 'unblock'];
+}
+objectMap.forEach((row, y) => row.forEach((o, x) => {
+  if (o) {
+    const [img] = o;
+    const el = document.createElement('div');
+    el.className = 'tile-object';
+    el.style.left = `${x * TILE_SIZE}px`;
+    el.style.top = `${y * TILE_SIZE}px`;
+    el.style.backgroundImage = `url('${img}')`;
+    world.appendChild(el);
+  }
+}));
+
+// === World & Character Update Functions ===
+function updateWorldPosition() {
+  world.style.left = `${-cameraX}px`;
+  world.style.top = `${-cameraY}px`;
+}
+function updateCharacter() {
+  char.style.left = `${playerX - cameraX}px`;
+  char.style.top = `${playerY - cameraY}px`;
+}
+updateWorldPosition();
+updateCharacter();
+
+// === Event Listeners ===
+
+// E key for world object interaction only.
+document.addEventListener('keydown', e => {
+  if (e.key === 'e' || e.key === 'E') {
+    if (currentMessage) {
+      showMessage(currentMessage);
+    }
+    // Do nothing for NPCs on E.
+  }
+});
+
+// T key to trigger NPC message popup.
+const NPC_INTERACTION_THRESHOLD = 100; // Adjust this value as needed
+
+document.addEventListener('keydown', e => {
+  if (e.key === 't' || e.key === 'T') {
+    console.log("T pressed - checking NPC collisions using proximity");
+    let interacted = false;
+    let playerCenterX = playerX + PLAYER_SIZE / 2;
+    let playerCenterY = playerY + PLAYER_SIZE / 2;
+    for (let npc of npcObjects) {
+      let npcX = parseFloat(npc.style.left);
+      let npcY = parseFloat(npc.style.top);
+      let npcCenterX = npcX + 32;
+      let npcCenterY = npcY + 32;
+      let dx = playerCenterX - npcCenterX;
+      let dy = playerCenterY - npcCenterY;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+      console.log(`Distance from player to NPC: ${dist}`);
+      if (
+        npc.dataset.message && npc.dataset.message !== "notalk" &&
+        dist < NPC_INTERACTION_THRESHOLD
+      ) {
+        console.log("NPC in range, triggering interaction");
+        // If NPC is not already in talking state, set it to talking.
+        if (npc.dataset.behavior !== "talking") {
+          npc.dataset.previousBehavior = npc.dataset.behavior;
+          npc.dataset.behavior = "talking";
+          let diffX = playerCenterX - npcCenterX;
+          let diffY = playerCenterY - npcCenterY;
+          npc.dataset.facing = (Math.abs(diffX) > Math.abs(diffY))
+                                ? (diffX > 0 ? 'right' : 'left')
+                                : (diffY > 0 ? 'down' : 'up');
+          let row = npc.dataset.facing === 'up' ? 3 :
+                    npc.dataset.facing === 'down' ? 0 :
+                    npc.dataset.facing === 'left' ? 1 : 2;
+          npc.style.backgroundPosition = `0px -${row * 64}px`;
+        }
+        if (npc.interactionTimeout) {
+          clearTimeout(npc.interactionTimeout);
+          delete npc.interactionTimeout;
+        }
+        // Append an extra player message.
+        currentMessage = npc.dataset.message;
+        showMessage(currentMessage);
+        interacted = true;
+        break;
+      }
+    }
+    if (!interacted) {
+      console.log("No NPC in range");
+    }
+  }
+});
+
+
+// F key for attack animation.
+document.addEventListener('keydown', e => {
+  if ((e.key === 'f' || e.key === 'F') && !isAttacking) startAttackAnimation();
+});
+
+// Movement keys (arrow keys, w, a, s, d)
+const direction = {
+  ArrowUp: 3, ArrowDown: 0, ArrowLeft: 1, ArrowRight: 2,
+  w: 3, s: 0, a: 1, d: 2
+};
+document.addEventListener('keydown', e => {
+  if (isAttacking || !(e.key in direction)) return;
+  const dir = e.key.toLowerCase();
+  frameY = direction[e.key];
+  frameX = (frameX + 1) % 4;
+  char.style.backgroundPosition = `-${frameX * 64}px -${frameY * 64}px`;
+  let dx = 0, dy = 0;
+  if (dir === 'w') dy = -MOVE_STEP;
+  if (dir === 's') dy = MOVE_STEP;
+  if (dir === 'a') dx = -MOVE_STEP;
+  if (dir === 'd') dx = MOVE_STEP;
+  const newX = playerX + dx;
+  const newY = playerY + dy;
+  if (newX < 0 || newX > MAP_SIZE - PLAYER_SIZE || newY < 0 || newY > MAP_SIZE - PLAYER_SIZE) return;
+  // Check collisions with world objects.
+  const centerX = newX + PLAYER_SIZE / 2;
+  const centerY = newY + PLAYER_SIZE / 2;
+  const tileCX = Math.floor(centerX / TILE_SIZE);
+  const tileCY = Math.floor(centerY / TILE_SIZE);
+  for (let y = tileCY - 1; y <= tileCY + 1; y++) {
+    for (let x = tileCX - 1; x <= tileCX + 1; x++) {
+      const tile = objectMap[y]?.[x];
+      if (!tile || tile[1] !== 'block') continue;
+      const top = parseFloat(tile[2] || '0');
+      const left = parseFloat(tile[3] || '0');
+      const right = parseFloat(tile[4] || '0');
+      const bottom = parseFloat(tile[5] || '0');
+      const tileLeft = x * TILE_SIZE - left;
+      const tileRight = (x + 1) * TILE_SIZE + right;
+      const tileTop = y * TILE_SIZE - top;
+      const tileBottom = (y + 1) * TILE_SIZE + bottom;
+      if (centerX >= tileLeft && centerX <= tileRight && centerY >= tileTop && centerY <= tileBottom) {
+        if (tile[6]) currentMessage = tile[6];
+        return;
+      }
+    }
+  }
+  // Check collisions with NPCs.
+  for (let npc of npcObjects) {
+    let npcX = parseFloat(npc.style.left);
+    let npcY = parseFloat(npc.style.top);
+    if (newX < npcX + 64 && newX + PLAYER_SIZE > npcX &&
+        newY < npcY + 64 && newY + PLAYER_SIZE > npcY) {
+      if (npc.dataset.message && npc.dataset.message !== "notalk") {
+        if (npc.dataset.behavior !== "talking") {
+          npc.dataset.previousBehavior = npc.dataset.behavior;
+          npc.dataset.behavior = "talking";
+          let npcCenterX = npcX + 32;
+          let npcCenterY = npcY + 32;
+          let diffX = (playerX + PLAYER_SIZE/2) - npcCenterX;
+          let diffY = (playerY + PLAYER_SIZE/2) - npcCenterY;
+          npc.dataset.facing = (Math.abs(diffX) > Math.abs(diffY))
+                                ? (diffX > 0 ? 'right' : 'left')
+                                : (diffY > 0 ? 'down' : 'up');
+          let row = npc.dataset.facing === 'up' ? 3 :
+                    npc.dataset.facing === 'down' ? 0 :
+                    npc.dataset.facing === 'left' ? 1 : 2;
+          npc.style.backgroundPosition = `0px -${row * 64}px`;
+          // For walking NPC, wait 2 seconds for interaction before resuming movement.
+          if(npc.dataset.previousBehavior === "walk"){
+            npc.interactionTimeout = setTimeout(() => {
+              if(npc.dataset.behavior === "talking"){
+                npc.dataset.behavior = npc.dataset.previousBehavior;
+                delete npc.dataset.previousBehavior;
+              }
+            }, 2000);
+          }
+        }
+      }
+      return;
+    }
+  }
+  // Update player position and camera if no collision.
+  playerX = newX;
+  playerY = newY;
+  const screenX = playerX - cameraX;
+  const screenY = playerY - cameraY;
+  if (screenX < EDGE_BUFFER) cameraX = Math.max(playerX - EDGE_BUFFER, 0);
+  else if (screenX > window.innerWidth - EDGE_BUFFER) cameraX = Math.min(playerX - (window.innerWidth - EDGE_BUFFER), MAP_SIZE - window.innerWidth);
+  if (screenY < EDGE_BUFFER) cameraY = Math.max(playerY - EDGE_BUFFER, 0);
+  else if (screenY > window.innerHeight - EDGE_BUFFER) cameraY = Math.min(playerY - (window.innerHeight - EDGE_BUFFER), MAP_SIZE - window.innerHeight);
+  updateWorldPosition();
+  updateCharacter();
+});
+  
+window.addEventListener('resize', () => {
+  cameraX = Math.max(0, Math.min(playerX - window.innerWidth / 2, MAP_SIZE - window.innerWidth));
+  cameraY = Math.max(0, Math.min(playerY - window.innerHeight / 2, MAP_SIZE - window.innerHeight));
+  updateWorldPosition();
+  updateCharacter();
+});
+  
+function startAttackAnimation() {
+  isAttacking = true;
+  char.style.backgroundImage = `url('${attackSheet}')`;
+  let attackFrame = 0;
+  const attackInterval = setInterval(() => {
+    char.style.backgroundPosition = `-${attackFrame * 64}px -${frameY * 64}px`;
+    attackFrame++;
+    if (attackFrame >= 4) {
+      clearInterval(attackInterval);
+      char.style.backgroundImage = `url('${walkSheet}')`;
+      char.style.backgroundPosition = `-${frameX * 64}px -${frameY * 64}px`;
+      isAttacking = false;
+    }
+  }, 250);
+}
+</script>
+</body>
+</html>
