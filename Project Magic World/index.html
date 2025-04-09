@@ -109,9 +109,9 @@ function isBlockedByPlayer(x, y) {
 // === NPC Setup ===
 const npcList = [
   // Idle NPC: remains static at [110,110]
-  ['characters/char_2.png', 'block', 'idle', [110, 110], null, "Hey There! <br><br>Hope your day goes well !"],
+  ['characters/char_2.png', 'block', 'idle', [95, 100.5], null, "Hey There! <br><br>Hope your day goes well !"],
   // Walking NPC: patrols between [90,90] and [110,95]
-  ['characters/char_3.png', 'block', 'walk', [90, 90], [110, 95], "Good Day! <br><br>Walking is good for health !!!"]
+  ['characters/char_3.png', 'block', 'walk', [90, 80.5], [109, 100.5], "Good Day! <br><br>Walking is good for health !!!"]
 ];
 
 const npcObjects = [];
@@ -147,82 +147,206 @@ setInterval(() => {
 }, 500);
 
 
-// === Walking NPC Logic (only if behavior is walk) ===
+// Helper: Check if (x,y) is blocked by the player, any blocking NPC (except self) or any blocking world object.
+function isBlocked(x, y, npc) {
+  // Check player (assumes player occupies a 64x64 box)
+  if (x + 64 > playerX && x < playerX + PLAYER_SIZE &&
+      y + 64 > playerY && y < playerY + PLAYER_SIZE) {
+    return true;
+  }
+  // Check other NPCs (only those with dataset.block === "block")
+  for (let other of npcObjects) {
+    if (other === npc) continue;
+    if (other.dataset.block !== "block") continue;
+    let otherX = parseFloat(other.style.left);
+    let otherY = parseFloat(other.style.top);
+    if (x < otherX + 64 && x + 64 > otherX &&
+        y < otherY + 64 && y + 64 > otherY) {
+      return true;
+    }
+  }
+  // Check world objects from the objectMap.
+  // We'll use the center of the NPC for tile indices.
+  let tileCX = Math.floor((x + 32) / TILE_SIZE);
+  let tileCY = Math.floor((y + 32) / TILE_SIZE);
+  for (let i = tileCY - 1; i <= tileCY + 1; i++) {
+    for (let j = tileCX - 1; j <= tileCX + 1; j++) {
+      let tile = objectMap[i]?.[j];
+      if (tile && tile[1] === "block") {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+
+// === Walking NPC Logic (Manhattan / rook-style with lateral search for detours) ===
 setInterval(() => {
   npcObjects.forEach(npc => {
     if (npc.dataset.behavior !== 'walk') return;
+    
     const speed = 10;
+    const threshold = 5;       // Consider a coordinate aligned if within this many pixels.
+    const bufferDistance = 100; // Maximum lateral search distance for detours.
+    const searchStep = 10;      // Step size for scanning along the perpendicular axis.
+    
+    // Get final destination from patrol path.
     const path = JSON.parse(npc.dataset.path);
     const state = npc.dataset.state || 'forward';
     const [from, to] = state === 'forward' ? path : [path[1], path[0]];
-    let posX = parseFloat(npc.dataset.posX);
-    let posY = parseFloat(npc.dataset.posY);
-    const targetX = to[0] * TILE_SIZE;
-    const targetY = to[1] * TILE_SIZE;
-    let dx = targetX - posX;
-    let dy = targetY - posY;
-    let moveX = 0, moveY = 0;
-    let dirRow = 0;
+    const finalTargetX = to[0] * TILE_SIZE;
+    const finalTargetY = to[1] * TILE_SIZE;
     
-    // Primary movement: prefer horizontal if |dx| > |dy|, else vertical.
-    if (Math.abs(dx) > 1 && Math.abs(dx) >= Math.abs(dy)) {
-      moveX = dx > 0 ? Math.min(speed, dx) : Math.max(-speed, dx);
-      dirRow = moveX > 0 ? 2 : 1;
-      npc.dataset.facing = moveX > 0 ? 'right' : 'left';
-    } else if (Math.abs(dy) > 1) {
-      moveY = dy > 0 ? Math.min(speed, dy) : Math.max(-speed, dy);
-      dirRow = moveY > 0 ? 0 : 3;
-      npc.dataset.facing = moveY > 0 ? 'down' : 'up';
+    // Determine the active target:
+    // Priority: detourTarget > waypoint > final destination.
+    let targetX, targetY;
+    if (npc.detourTarget) {
+      targetX = npc.detourTarget.x;
+      targetY = npc.detourTarget.y;
+      if (Math.abs(parseFloat(npc.dataset.posX) - targetX) < threshold &&
+          Math.abs(parseFloat(npc.dataset.posY) - targetY) < threshold) {
+        npc.detourTarget = null;
+        targetX = finalTargetX;
+        targetY = finalTargetY;
+      }
+    } else if (npc.waypoint) {
+      targetX = npc.waypoint.x;
+      targetY = npc.waypoint.y;
+      if (Math.abs(parseFloat(npc.dataset.posX) - targetX) < threshold &&
+          Math.abs(parseFloat(npc.dataset.posY) - targetY) < threshold) {
+        npc.waypoint = null;
+        targetX = finalTargetX;
+        targetY = finalTargetY;
+      }
     } else {
-      // Target reached; switch patrol direction.
-      npc.dataset.state = state === 'forward' ? 'backward' : 'forward';
+      targetX = finalTargetX;
+      targetY = finalTargetY;
+      // Compute a Manhattan waypoint if not aligned along both axes.
+      let curX = parseFloat(npc.dataset.posX);
+      let curY = parseFloat(npc.dataset.posY);
+      if (Math.abs(curX - finalTargetX) > threshold &&
+          Math.abs(curY - finalTargetY) > threshold) {
+        // Choose horizontal-first if horizontal difference is larger.
+        if (Math.abs(finalTargetX - curX) >= Math.abs(finalTargetY - curY)) {
+          npc.waypoint = { x: finalTargetX, y: curY };
+        } else {
+          npc.waypoint = { x: curX, y: finalTargetY };
+        }
+        targetX = npc.waypoint.x;
+        targetY = npc.waypoint.y;
+      }
+    }
+    
+    // Allow dynamic cancellation: if the final destination is now closer than the current target, clear intermediate targets.
+    let curX = parseFloat(npc.dataset.posX);
+    let curY = parseFloat(npc.dataset.posY);
+    let manhattanToTarget = Math.abs(targetX - curX) + Math.abs(targetY - curY);
+    let manhattanFinal = Math.abs(finalTargetX - curX) + Math.abs(finalTargetY - curY);
+    if (manhattanFinal < manhattanToTarget) {
+      npc.detourTarget = null;
+      npc.waypoint = null;
+      targetX = finalTargetX;
+      targetY = finalTargetY;
+    }
+    
+    // Compute differences from current position to active target.
+    let dx = targetX - curX;
+    let dy = targetY - curY;
+    
+    // Decide on a primary axis (only move along one axis at a time).
+    let primaryAxis = null;
+    if (Math.abs(dx) > threshold) {
+      primaryAxis = 'horizontal';
+    } else if (Math.abs(dy) > threshold) {
+      primaryAxis = 'vertical';
+    } else {
+      if (!npc.detourTarget && !npc.waypoint) {
+        // If at the final destination, flip patrol direction.
+        npc.dataset.state = state === 'forward' ? 'backward' : 'forward';
+      }
       return;
     }
     
-    let nextX = posX + moveX;
-    let nextY = posY + moveY;
+    // Calculate the desired pure move along the primary axis.
+    let moveX = 0, moveY = 0, dirRow = 0;
+    if (primaryAxis === 'horizontal') {
+      moveX = dx > 0 ? Math.min(speed, dx) : Math.max(-speed, dx);
+      moveY = 0;
+      // Assume sprite row 2 for right and row 1 for left.
+      dirRow = moveX > 0 ? 2 : 1;
+      npc.dataset.facing = moveX > 0 ? 'right' : 'left';
+    } else {  // vertical
+      moveY = dy > 0 ? Math.min(speed, dy) : Math.max(-speed, dy);
+      moveX = 0;
+      // Assume sprite row 0 for down and row 3 for up.
+      dirRow = moveY > 0 ? 0 : 3;
+      npc.dataset.facing = moveY > 0 ? 'down' : 'up';
+    }
     
-    // Check if player's blocking the path.
-    if (isBlockedByPlayer(nextX, nextY)) {
-      let alternatives = [];
-      // If primary movement is horizontal, try vertical detours.
-      if (Math.abs(dx) >= Math.abs(dy)) {
-        if (!isBlockedByPlayer(posX, posY + speed)) {
-          alternatives.push({ moveX: 0, moveY: speed, dirRow: 0, facing: 'down' });
-        }
-        if (!isBlockedByPlayer(posX, posY - speed)) {
-          alternatives.push({ moveX: 0, moveY: -speed, dirRow: 3, facing: 'up' });
+    let nextX = curX + moveX;
+    let nextY = curY + moveY;
+    
+    // If the next position is blocked by the player, other NPCs, or world objects...
+    if (isBlocked(nextX, nextY, npc)) {
+      // --- Search for an alternative route using a buffer search ---
+      let bestCandidate = null;
+      let bestCandidateDist = Infinity;
+      
+      if (primaryAxis === 'vertical') {
+        // We're moving vertically. Scan horizontally.
+        for (let offset = 0; offset <= bufferDistance; offset += searchStep) {
+          // Try both left and right.
+          for (let sign of [1, -1]) {
+            let candidateX = curX + sign * offset;
+            let candidateY = curY + moveY; // we maintain our vertical progress.
+            if (!isBlocked(candidateX, candidateY, npc)) {
+              let candidateDist = Math.abs(finalTargetX - candidateX) + Math.abs(finalTargetY - candidateY);
+              if (candidateDist < bestCandidateDist) {
+                bestCandidateDist = candidateDist;
+                bestCandidate = { x: candidateX, y: candidateY };
+              }
+            }
+          }
         }
       } else {
-        // If primary movement is vertical, try horizontal detours.
-        if (!isBlockedByPlayer(posX + speed, posY)) {
-          alternatives.push({ moveX: speed, moveY: 0, dirRow: 2, facing: 'right' });
-        }
-        if (!isBlockedByPlayer(posX - speed, posY)) {
-          alternatives.push({ moveX: -speed, moveY: 0, dirRow: 1, facing: 'left' });
+        // primaryAxis is horizontal. Scan vertically.
+        for (let offset = 0; offset <= bufferDistance; offset += searchStep) {
+          for (let sign of [1, -1]) {
+            let candidateX = curX + moveX; // maintain horizontal progress.
+            let candidateY = curY + sign * offset;
+            if (!isBlocked(candidateX, candidateY, npc)) {
+              let candidateDist = Math.abs(finalTargetX - candidateX) + Math.abs(finalTargetY - candidateY);
+              if (candidateDist < bestCandidateDist) {
+                bestCandidateDist = candidateDist;
+                bestCandidate = { x: candidateX, y: candidateY };
+              }
+            }
+          }
         }
       }
-      if (alternatives.length > 0) {
-        // Pick the alternative that minimizes the distance to the target.
-        let bestAlt = alternatives[0];
-        let bestDist = Infinity;
-        alternatives.forEach(alt => {
-          let testX = posX + alt.moveX;
-          let testY = posY + alt.moveY;
-          let newDx = targetX - testX;
-          let newDy = targetY - testY;
-          let dist = Math.sqrt(newDx * newDx + newDy * newDy);
-          if (dist < bestDist) {
-            bestDist = dist;
-            bestAlt = alt;
-          }
-        });
-        moveX = bestAlt.moveX;
-        moveY = bestAlt.moveY;
-        dirRow = bestAlt.dirRow;
-        npc.dataset.facing = bestAlt.facing;
+      
+      if (bestCandidate) {
+        npc.detourTarget = bestCandidate;
+        targetX = bestCandidate.x;
+        targetY = bestCandidate.y;
+        dx = targetX - curX;
+        dy = targetY - curY;
+        if (primaryAxis === 'vertical') {
+          moveY = dy > 0 ? Math.min(speed, dy) : Math.max(-speed, dy);
+          moveX = 0;
+          dirRow = moveY > 0 ? 0 : 3;
+          npc.dataset.facing = moveY > 0 ? 'down' : 'up';
+        } else {
+          moveX = dx > 0 ? Math.min(speed, dx) : Math.max(-speed, dx);
+          moveY = 0;
+          dirRow = moveX > 0 ? 2 : 1;
+          npc.dataset.facing = moveX > 0 ? 'right' : 'left';
+        }
+        nextX = curX + moveX;
+        nextY = curY + moveY;
       } else {
-        // No alternative available, so pause for 2 seconds.
+        // No alternative candidate found. Pause.
         if (npc.dataset.behavior !== "talking") {
           npc.dataset.previousBehavior = npc.dataset.behavior;
           npc.dataset.behavior = "talking";
@@ -233,22 +357,28 @@ setInterval(() => {
             }
           }, 2000);
         }
-        return; // Do not update position this frame.
+        return;
       }
     }
     
-    // Animate the NPC.
+    // Animate the sprite.
     let frame = (parseInt(npc.dataset.frame) + 1) % 4;
     npc.dataset.frame = frame;
-    posX += moveX;
-    posY += moveY;
-    npc.dataset.posX = posX;
-    npc.dataset.posY = posY;
-    npc.style.left = `${posX}px`;
-    npc.style.top = `${posY}px`;
+    
+    // Update NPC position.
+    curX += moveX;
+    curY += moveY;
+    npc.dataset.posX = curX;
+    npc.dataset.posY = curY;
+    npc.style.left = `${curX}px`;
+    npc.style.top = `${curY}px`;
     npc.style.backgroundPosition = `-${frame * 64}px -${dirRow * 64}px`;
   });
 }, 1000 / 15);
+
+
+
+
 
 
 
