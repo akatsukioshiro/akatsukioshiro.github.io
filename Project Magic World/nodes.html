@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Node Editor — Refined Fan & Layout</title>
+      <style>
+         html, body { margin:0; height:100%; overflow:hidden; font-family:sans-serif }
+         body {
+         background-color:#000;
+         background-image:
+         linear-gradient(to right,#222 1px,transparent 1px),
+         linear-gradient(to bottom,#222 1px,transparent 1px);
+         background-size:20px 20px;
+         cursor:default;
+         }
+         .node {
+         position:absolute;
+         background:#333;
+         border:2px solid #eee;
+         border-radius:10px;
+         padding:20px;
+         box-sizing:border-box;
+         user-select:none;
+         touch-action:none;
+         min-width:200px;
+         transition:box-shadow .2s;
+         }
+         .node:hover    { box-shadow:0 0 20px #ffffffaa }
+         .node:active   { box-shadow:0 0 10px #ffffffff }
+         .node.selected { box-shadow:0 0 10px #ffffffff }
+         .node.active-switch { border:2px solid lime !important }
+         .inputs-container {
+         display:inline-flex;
+         gap:4px;
+         justify-content:center;
+         margin-bottom:12px;
+         }
+         .inputs-container input {
+         width:40px;
+         text-align:center;
+         }
+         .pin {
+         border-radius:50%;
+         position:absolute;
+         transform:translate(-50%,-50%);
+         z-index:2;
+         }
+         .pin.input  { width:14px; height:14px; background:#eee }
+         .pin.output { width:8px;  height:8px;  background:#eee }
+         .pin:hover  { background:#8888ff; cursor:pointer }
+         svg#svg {
+         position:absolute; top:0; left:0; width:100%; height:100%;
+         pointer-events:all; z-index:0;
+         }
+         path.curve {
+         stroke:#fff; fill:none; stroke-width:2; stroke-dasharray:5,5;
+         }
+         #calculateBtn {
+         position: fixed; right: 10px; bottom: 10px;
+         padding:8px 12px; background:#444; color:#fff;
+         border:none; border-radius:4px; cursor:pointer;
+         }
+         #calculateBtn:hover { background:#666 }
+      </style>
+   </head>
+   <body>
+      <svg id="svg"></svg>
+      <button id="calculateBtn">Calculate</button>
+      <script>
+         let nodeIdCounter = 0;
+         const nodes = {}, connections = [], inputMap = new Map();
+         const srcFields = {}, nullFields = {}, motorNodes = {}, switchNodes = {};
+         let dragPath=null, dragFrom=null, selectedPath=null;
+         const svg = document.getElementById('svg');
+         const spacing = 20;
+         
+         function createNode(spec) {
+           const id = `node${++nodeIdCounter}`;
+           spec.x = spec.x||0; spec.y = spec.y||0;
+           const n  = document.createElement('div');
+           n.className='node';
+           n.style.left=spec.x+'px';
+           n.style.top =spec.y+'px';
+           n.dataset.id=id;
+           document.body.appendChild(n);
+         
+           const pv = Math.max((spec.left_inputs||[]).length,(spec.right_inputs||[]).length);
+           const ph = Math.max((spec.top_inputs||[]).length,(spec.bottom_inputs||[]).length);
+           n.style.height = (pv*spacing + 40) + 'px';
+           n.style.width  = Math.max(200, ph*spacing + 40) + 'px';
+         
+           function place(pin, side, idx, count) {
+             let off;
+             if (side==='top'||side==='bottom') {
+               const total=(count-1)*spacing, start=n.clientWidth/2 - total/2;
+               off = start + idx*spacing;
+             } else {
+               const total=(count-1)*spacing, start=n.clientHeight/2 - total/2;
+               off = start + idx*spacing;
+             }
+             if (side==='left')   { pin.style.left=0;      pin.style.top=`${off}px`; }
+             if (side==='right')  { pin.style.left='100%'; pin.style.top=`${off}px`; }
+             if (side==='top')    { pin.style.top=0;       pin.style.left=`${off}px`; }
+             if (side==='bottom') { pin.style.top='100%';  pin.style.left=`${off}px`; }
+             n.appendChild(pin);
+             setupPin(pin);
+           }
+         
+           (spec.left_inputs   ||[]).forEach((p,i)=>place(makePin('input',id,p),'left',   i, spec.left_inputs.length));
+           (spec.top_inputs    ||[]).forEach((p,i)=>place(makePin('input',id,p),'top',    i, spec.top_inputs.length));
+           (spec.right_inputs  ||[]).forEach((p,i)=>place(makePin('input',id,p),'right',  i, spec.right_inputs.length));
+           (spec.bottom_inputs ||[]).forEach((p,i)=>place(makePin('input',id,p),'bottom', i, spec.bottom_inputs.length));
+           (spec.left_outputs   ||[]).forEach((p,i)=>place(makePin('output',id,p),'left',   i, spec.left_outputs.length));
+           (spec.top_outputs    ||[]).forEach((p,i)=>place(makePin('output',id,p),'top',    i, spec.top_outputs.length));
+           (spec.right_outputs  ||[]).forEach((p,i)=>place(makePin('output',id,p),'right',  i, spec.right_outputs.length));
+           (spec.bottom_outputs ||[]).forEach((p,i)=>place(makePin('output',id,p),'bottom', i, spec.bottom_outputs.length));
+         
+           n.addEventListener('click',()=>{
+             document.querySelectorAll('.node').forEach(x=>x.classList.remove('selected'));
+             n.classList.add('selected');
+           });
+           makeDraggable(n);
+           nodes[id] = n;
+           return id;
+         }
+         
+         function makePin(type,nid,pid) {
+           const p=document.createElement('div');
+           p.className=`pin ${type}`;
+           p.dataset.type=type; p.dataset.nodeId=nid; p.dataset.pinId=pid;
+           return p;
+         }
+         
+         function setupPin(pin) {
+           pin.addEventListener('mousedown',e=>{
+             const {type,nodeId,pinId}=pin.dataset, key=`${nodeId}_${pinId}`;
+             if(type==='output'){ dragFrom=pin; startDrag(); }
+             else if(type==='input'&& inputMap.has(key)){
+               removeConn(inputMap.get(key));
+               dragFrom=inputMap.get(key)?.from;
+               startDrag();
+             }
+             e.stopPropagation();
+           });
+         }
+         
+         function startDrag(){
+           dragPath=document.createElementNS(svg.namespaceURI,'path');
+           dragPath.classList.add('curve','temp');
+           svg.appendChild(dragPath);
+           document.addEventListener('mousemove',onDrag);
+           document.addEventListener('mouseup',onDrop);
+         }
+         function onDrag(e){
+           const a=getCenter(dragFrom), b={x:e.clientX,y:e.clientY},
+                 dx=Math.abs(b.x-a.x)*0.5;
+           dragPath.setAttribute('d',
+             `M ${a.x},${a.y} C ${a.x+dx},${a.y} ${b.x-dx},${b.y} ${b.x},${b.y}`
+           );
+         }
+         function onDrop(e){
+           document.removeEventListener('mousemove',onDrag);
+           document.removeEventListener('mouseup',onDrop);
+           const tgt=document.elementFromPoint(e.clientX,e.clientY);
+           if(tgt?.classList.contains('pin')&& tgt.dataset.type==='input'
+              && tgt.dataset.nodeId!==dragFrom.dataset.nodeId) {
+             const key=`${tgt.dataset.nodeId}_${tgt.dataset.pinId}`;
+             if(inputMap.has(key)) removeConn(inputMap.get(key));
+             const p=document.createElementNS(svg.namespaceURI,'path');
+             p.classList.add('curve'); svg.appendChild(p);
+             p.addEventListener('click',()=>{
+               if(selectedPath) selectedPath.classList.remove('selected');
+               selectedPath=p; p.classList.add('selected');
+             });
+             const conn={from:dragFrom,to:tgt,path:p};
+             connections.push(conn); inputMap.set(key,conn);
+             updateAll(); handleMotor();
+           }
+           dragPath?.remove(); dragPath=null; dragFrom=null;
+         }
+         function removeConn(c){
+           svg.removeChild(c.path);
+           connections.splice(connections.indexOf(c),1);
+           inputMap.delete(`${c.to.dataset.nodeId}_${c.to.dataset.pinId}`);
+         }
+         
+         function updateAll(){
+           connections.forEach(({from,to,path})=>{
+             const a=getCenter(from), b=getCenter(to), dx=Math.abs(b.x-a.x)*0.5;
+             path.setAttribute('d',
+               `M ${a.x},${a.y} C ${a.x+dx},${a.y} ${b.x-dx},${b.y} ${b.x},${b.y}`
+             );
+           });
+         }
+         function getCenter(el){
+           const r=el.getBoundingClientRect();
+           return {x:r.left+r.width/2, y:r.top+r.height/2};
+         }
+         function makeDraggable(el){
+           let ox,oy;
+           const mv=e=>{ el.style.left=e.clientX-ox+'px';
+                          el.style.top=e.clientY-oy+'px'; updateAll(); };
+           const up=()=>{ document.removeEventListener('mousemove',mv);
+                          document.removeEventListener('mouseup',up); };
+           el.addEventListener('mousedown',e=>{
+             ox=e.offsetX; oy=e.offsetY;
+             document.addEventListener('mousemove',mv);
+             document.addEventListener('mouseup',up);
+           });
+         }
+         
+         function rgb_src(x,y) {
+           const id=createNode({ x,y, bottom_outputs:['R','G','B'] });
+           const n=nodes[id];
+           const cont=document.createElement('div');
+           cont.className='inputs-container';
+           ['R','G','B'].forEach(ch=>{
+             const inp=document.createElement('input');
+             inp.type='number'; inp.min=0; inp.max=255; inp.value=0;
+             cont.appendChild(inp);
+             if(!srcFields[id]) srcFields[id]={};
+             srcFields[id][ch]=inp;
+           });
+           n.insertBefore(cont,n.firstChild);
+           n.style.height='auto';
+           return id;
+         }
+         
+         function rgb_null(x,y) {
+           const id=createNode({ x,y, top_inputs:['R','G','B'] });
+           const n=nodes[id];
+           const cont=document.createElement('div');
+           cont.className='inputs-container';
+           ['R','G','B'].forEach(ch=>{
+             const inp=document.createElement('input');
+             inp.type='number'; inp.min=0; inp.max=255; inp.value=0; inp.disabled=true;
+             cont.appendChild(inp);
+             if(!nullFields[id]) nullFields[id]={};
+             nullFields[id][ch]=inp;
+           });
+           n.insertBefore(cont,n.firstChild);
+           n.style.height='auto';
+           return id;
+         }
+         
+         function rgb_motor(x,y,color) {
+           const id=createNode({
+             x,y,
+             top_inputs:[color],
+             bottom_outputs:[color]
+           });
+           const n=nodes[id];
+           const fanSvg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+           fanSvg.setAttribute('width','80'); fanSvg.setAttribute('height','80');
+           fanSvg.style.display='block'; fanSvg.style.margin='auto';
+           fanSvg.style.transformOrigin='40px 40px';
+           const g=document.createElementNS(fanSvg.namespaceURI,'g');
+           g.setAttribute('transform','translate(40,40)');
+           const bladePath='M0,0 L30,10 A5,5 0 0,1 25,0 Z';
+           for(let i=0;i<4;i++){
+             const blade=document.createElementNS(fanSvg.namespaceURI,'path');
+             blade.setAttribute('d',bladePath);
+             blade.setAttribute('fill','#eee');
+             blade.setAttribute('transform',`rotate(${i*90})`);
+             g.appendChild(blade);
+           }
+           fanSvg.appendChild(g);
+           n.appendChild(fanSvg);
+           motorNodes[id]={ color, wheel:fanSvg, anim:null };
+           n.style.height='auto';
+           return id;
+         }
+         
+         function kbhit_switch(x, y, color, keyChar) {
+           const id = createNode({
+             x, y,
+             top_inputs: [color],
+             bottom_outputs: [color]
+           });
+           const n = nodes[id];
+           const label = document.createElement('div');
+           label.textContent = `Key: ${keyChar.toUpperCase()}`;
+           label.style.color = '#fff';
+           label.style.textAlign = 'center';
+           label.style.marginTop = '-8px';
+           n.appendChild(label);
+           switchNodes[id] = { key: keyChar.toLowerCase(), active: false, el: n, color };
+           return id;
+         }
+         
+         document.addEventListener('keydown', e => {
+           Object.entries(switchNodes).forEach(([id, sw]) => {
+             if (e.key.toLowerCase() === sw.key) {
+               sw.active = true;
+               sw.el.classList.add('active-switch');
+               handleMotor();
+             }
+           });
+         });
+         
+         document.addEventListener('keyup', e => {
+         Object.entries(switchNodes).forEach(([id, sw]) => {
+         if (e.key.toLowerCase() === sw.key) {
+           sw.active = false;
+           sw.el.classList.remove('active-switch');
+         
+           // ❌ Stop any motor that depends on this switch
+           Object.entries(motorNodes).forEach(([mid, m]) => {
+             const col = m.color;
+         
+             // Trace back from motor to source
+             const inC = connections.find(c => c.to.dataset.nodeId === mid && c.to.dataset.pinId === col);
+             if (!inC) return;
+         
+             let current = inC.from;
+             while (current) {
+               const nid = current.dataset.nodeId;
+               if (nid === id) {
+                 console.log(`Stopped motor ${mid} due to keyup on switch ${id}`);
+                 if (m.anim) m.anim.cancel();
+                 m.running = false;
+                 return;
+               }
+               const prevConn = connections.find(c => c.to.dataset.nodeId === nid && c.to.dataset.pinId === col);
+               current = prevConn ? prevConn.from : null;
+             }
+           });
+         }
+         });
+         });
+         
+         
+         function handleMotor() {
+         console.log("==== Handle Motor Triggered ====");
+         Object.entries(motorNodes).forEach(([mid, m]) => {
+         const col = m.color;
+         console.log(`\nEvaluating Motor: ${mid} [${col}]`);
+         
+         const inC = connections.find(c => c.to.dataset.nodeId === mid && c.to.dataset.pinId === col);
+         const outC = connections.find(c => c.from.dataset.nodeId === mid && c.from.dataset.pinId === col);
+         if (!inC || !outC) {
+           console.log("Motor missing input or output connection.");
+           return;
+         }
+         
+         if (m.running) {
+           console.log("Motor already running.");
+           return;
+         }
+         
+         // Build the full path from source to motor
+         const pathNodes = [];
+         let current = inC.from;
+         while (current) {
+           pathNodes.push(current.dataset.nodeId);
+           const prevConn = connections.find(c => c.to.dataset.nodeId === current.dataset.nodeId && c.to.dataset.pinId === col);
+           current = prevConn ? prevConn.from : null;
+         }
+         
+         console.log("Resolved path:", pathNodes);
+         
+         // Check if any node in the path is an inactive switch
+         const inactiveSwitch = pathNodes.find(nid => switchNodes[nid] && !switchNodes[nid].active);
+         if (inactiveSwitch) {
+           console.log(`Blocked: switch ${inactiveSwitch} is inactive.`);
+           return;
+         }
+         
+         console.log("All switches in path are active.");
+         
+         m.running = true;
+         runMotor(mid);
+         });
+         }
+         
+         function isInPath(fromId, toId, pinId) {
+         let currentId = toId;
+         while (currentId) {
+         const conn = connections.find(c => c.to.dataset.nodeId === currentId && c.to.dataset.pinId === pinId);
+         if (!conn) return false;
+         currentId = conn.from.dataset.nodeId;
+         if (currentId === fromId) return true;
+         }
+         return false;
+         }
+         
+         
+         function runMotor(mid) {
+         const m = motorNodes[mid];
+         const col = m.color;
+         const inC  = connections.find(c => c.to.dataset.nodeId   === mid && c.to.dataset.pinId   === col);
+         const outC = connections.find(c => c.from.dataset.nodeId === mid && c.from.dataset.pinId === col);
+         if (!inC || !outC) { m.running = false; return; }
+         
+         // 🔍 Trace back to real srcFields node
+         let srcId = inC.from.dataset.nodeId;
+         while (srcId && !srcFields[srcId]) {
+         const prevConn = connections.find(c => c.to.dataset.nodeId === srcId && c.to.dataset.pinId === col);
+         srcId = prevConn ? prevConn.from.dataset.nodeId : null;
+         }
+         
+         let v1 = (srcId && srcFields[srcId] && srcFields[srcId][col]) ? parseInt(srcFields[srcId][col].value) : 0;
+         const nullId = outC.to.dataset.nodeId;
+         const v2 = (nullFields[nullId] && nullFields[nullId][col]) ? parseInt(nullFields[nullId][col].value) : 0;
+         const diff = v1 - v2;
+         
+         console.log("Resolved Source:", srcId, "Value:", v1);
+         if (diff <= 0) { console.log("No power difference. Stopping motor."); m.running = false; return; }
+         
+         const anim = m.wheel.animate(
+         [{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }],
+         { duration: 1000, easing: 'linear', fill: 'forwards' }
+         );
+         m.anim = anim;
+         anim.onfinish = () => {
+         m.anim = null;
+         
+         // Check if motor is still allowed to run
+         const sw = Object.values(switchNodes).find(sw =>
+         sw.color === col &&
+         !sw.active &&
+         isInPath(sw, mid, col)
+         );
+         
+         if (sw) {
+         console.log(`Motor ${mid} halted due to inactive switch`);
+         m.running = false;
+         return;
+         }
+         
+         srcFields[srcId][col].value = Math.max(0, v1 - 1);
+         runMotor(mid);
+         };
+         
+         }
+         
+         
+         document.getElementById('calculateBtn').addEventListener('click',()=>{
+           const out=connections.map(({from,to})=>({
+             from:{node:from.dataset.nodeId,pin:from.dataset.pinId},
+             to:  {node:to.dataset.nodeId,  pin:to.dataset.pinId}
+           }));
+           console.log(JSON.stringify(out,null,2));
+         });
+         
+         const src1 = rgb_src(50,50);
+         const null1= rgb_null(50,450);
+         const motorR= rgb_motor(50,270,'R');
+         const motorR1= rgb_motor(250,270,'R');
+         const swR = kbhit_switch(50,185,'R','A'); // Press 'A' key to activate
+         const swR1 = kbhit_switch(250,185,'R','B'); // Press 'A' key to activate
+      </script>
+   </body>
+</html>
