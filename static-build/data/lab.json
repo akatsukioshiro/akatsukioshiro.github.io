@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "title": "LLM-Powered Navigation",
+      "date": "2024",
+      "description": "Exploring how large language models can improve robot navigation and path planning through natural language understanding.",
+      "status": "Active",
+      "image": "/assets/images/lab/llm-navigation.jpg",
+      "imageAlt": "LLM-Powered Navigation Project"
+    },
+    {
+      "title": "3D-Printed Actuators",
+      "date": "2024",
+      "description": "Developing accessible, high-performance actuators using FDM printing and novel mechanical designs.",
+      "status": "Active",
+      "image": "/assets/images/lab/3d-printed-actuators.jpg",
+      "imageAlt": "3D-Printed Actuators Project"
+    },
+    {
+      "title": "Real-time Perception Stack",
+      "date": "2023-2024",
+      "description": "Building a modular perception system combining vision, lidar, and proprioceptive sensing for robust environment understanding.",
+      "status": "Ongoing",
+      "image": "/assets/images/lab/perception-stack.jpg",
+      "imageAlt": "Real-time Perception Stack Project"
+    },
+    {
+      "title": "Hardware-in-the-Loop Simulation",
+      "date": "2023",
+      "description": "Creating simulation environments that bridge physical hardware with virtual testing for faster iteration cycles.",
+      "status": "Paused",
+      "image": "/assets/images/lab/hil-simulation.jpg",
+      "imageAlt": "Hardware-in-the-Loop Simulation Project"
+    },
+    {
+      "title": "Unreal Engine Game Development",
+      "date": "2024",
+      "description": "Developing a top-down game in Unreal Engine, focusing on gameplay mechanics, level design, and player engagement.",
+      "status": "Active",
+      "image": "/assets/images/lab/unreal-game-dev.jpg",
+      "imageAlt": "Unreal Engine Game Development"
+    },
+    {
+      "title": "3D Product Design Pipeline",
+      "date": "2024",
+      "description": "Building a workflow for designing and producing 3D-printed consumer products like lamps, keychains, and functional accessories.",
+      "status": "Active",
+      "image": "/assets/images/lab/3d-product-pipeline.jpg",
+      "imageAlt": "3D Product Design Pipeline"
+    }
+  ]
+}
+

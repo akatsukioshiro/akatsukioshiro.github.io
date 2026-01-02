@@ -1,0 +1,94 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Modular Robot Arm",
+      "category": "Robot Kits",
+      "description": "3D-printable robot arm kit with 6 degrees of freedom. Includes control board and software.",
+      "status": "Work In Progress",
+      "image": "/assets/images/products/modular-robot-arm.jpg",
+      "imageAlt": "Modular Robot Arm"
+    },
+    {
+      "id": 2,
+      "name": "3D Printed Lamps",
+      "category": "3D Prints & Products",
+      "description": "Functional and aesthetic 3D-printed lamps designed for home and office use. Custom designs with modern aesthetics.",
+      "status": "Available",
+      "image": "/assets/images/products/3d-lamps.jpg",
+      "imageAlt": "3D Printed Lamps"
+    },
+    {
+      "id": 9,
+      "name": "Keychains & Accessories",
+      "category": "3D Prints & Products",
+      "description": "Custom 3D-printed keychains, phone stands, and other everyday accessories. Simple prints, great designs.",
+      "status": "Available",
+      "image": "/assets/images/products/keychains.jpg",
+      "imageAlt": "Keychains and Accessories"
+    },
+    {
+      "id": 3,
+      "name": "Autonomous Rover Kit",
+      "category": "Robot Kits",
+      "description": "Wheeled robot platform for exploring autonomous navigation and SLAM algorithms.",
+      "status": "Work In Progress",
+      "image": "/assets/images/products/autonomous-rover.jpg",
+      "imageAlt": "Autonomous Rover Kit"
+    },
+    {
+      "id": 4,
+      "name": "Robotic Hand",
+      "category": "Robots",
+      "description": "5-finger robotic hand with fine motor control, designed for manipulation tasks.",
+      "status": "Future",
+      "image": "/assets/images/products/robotic-hand.jpg",
+      "imageAlt": "Robotic Hand"
+    },
+    {
+      "id": 5,
+      "name": "3D Printer Parts",
+      "category": "3D Prints & Products",
+      "description": "High-quality replacement parts and upgrades for common 3D printers.",
+      "status": "Coming Soon",
+      "image": "/assets/images/products/3d-printer-parts.jpg",
+      "imageAlt": "3D Printer Parts"
+    },
+    {
+      "id": 6,
+      "name": "Top-Down Unreal Game",
+      "category": "Games",
+      "description": "Top-down game in development using Unreal Engine. Exploring interactive gameplay, mechanics, and engaging player experiences.",
+      "status": "Work In Progress",
+      "image": "/assets/images/products/unreal-game.jpg",
+      "imageAlt": "Top-Down Unreal Game"
+    },
+    {
+      "id": 7,
+      "name": "Humanoid Robot",
+      "category": "Robots",
+      "description": "Full humanoid platform with bipedal locomotion and upper body manipulation.",
+      "status": "Future",
+      "image": "/assets/images/products/humanoid-robot.jpg",
+      "imageAlt": "Humanoid Robot"
+    },
+    {
+      "id": 8,
+      "name": "ML Training Kit",
+      "category": "Robot Kits",
+      "description": "Educational kit for training and deploying machine learning models on embedded hardware.",
+      "status": "Coming Soon",
+      "image": "/assets/images/products/ml-training-kit.jpg",
+      "imageAlt": "ML Training Kit"
+    }
+  ],
+  "categories": [
+    "All",
+    "3D Prints & Products",
+    "Robot Kits",
+    "Robots",
+    "Games"
+  ],
+  "description": "Our product range includes 3D-printed items like lamps and keychains, robot kits for learning, full robotic systems, and games developed in Unreal Engine."
+}
+

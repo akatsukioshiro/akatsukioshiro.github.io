@@ -1,0 +1,159 @@
+{
+  "site": {
+    "name": "Orpus Labs",
+    "tagline": "Research & Engineering Studio"
+  },
+  "navigation": [
+    { "path": "/", "label": "Home" },
+    { "path": "/products", "label": "Products" },
+    { "path": "/lab", "label": "Lab" },
+    { "path": "/about", "label": "About" },
+    { "path": "/contact", "label": "Follow" }
+  ],
+  "home": {
+    "hero": {
+      "headline": "Building robots, products, and games,",
+      "headlineHighlight": "one prototype at a time",
+      "subtext": "From 3D-printed lamps and keychains to robot kits, experimental robots, and top-down games — we explore how design, technology, and creativity intersect.",
+      "primaryCTA": "Explore Products",
+      "primaryCTALink": "/products",
+      "secondaryCTA": "View Lab →",
+      "secondaryCTALink": "/lab"
+    },
+    "overview": {
+      "paragraph1": "Orpus Labs is a homegrown research and engineering studio focused on building intelligent robotics and creative products. We combine mechanical design with AI-driven cognition, while also creating accessible 3D-printed goods and developing games.",
+      "paragraph2": "Our work spans from simple 3D-printed products like lamps and keychains, to experimental robot kits, full robotic systems, and interactive game experiences. We experiment, prototype, break things, fix them, and repeat.",
+      "paragraph3": "Whether it's a functional lamp for your desk, a robot kit to learn with, or a top-down game in Unreal Engine, each project explores how design, technology, and creativity intersect. We are early in the journey, and this is a space for curiosity, persistence, and hands-on creation.",
+      "highlight": "From everyday products to advanced robotics — we build across the spectrum."
+    },
+    "sectors": {
+      "title": "Sectors We Work In",
+      "subtitle": "From everyday 3D-printed products to advanced robotics and games — we build across the spectrum.",
+      "items": [
+        {
+          "name": "3D Models & Products",
+          "description": "Functional and decorative 3D-printed products including lamps, keychains, and simple prints designed for everyday use.",
+          "status": "Available",
+          "image": "/assets/images/sectors/3d-models.jpg",
+          "imageAlt": "3D Models and Products"
+        },
+        {
+          "name": "Games",
+          "description": "Top-down game development in Unreal Engine, exploring interactive experiences and gameplay mechanics.",
+          "status": "Work In Progress",
+          "image": "/assets/images/sectors/games.jpg",
+          "imageAlt": "Games"
+        },
+        {
+          "name": "Robot Kits",
+          "description": "Experimental kits for exploring intelligent robotics at home, combining hardware, software, and learning.",
+          "status": "Work In Progress",
+          "image": "/assets/images/sectors/robot-kits.jpg",
+          "imageAlt": "Robot Kits"
+        },
+        {
+          "name": "Robots",
+          "description": "Full robotic systems with perception, reasoning, and action — our focus area for advanced robotics.",
+          "status": "Future",
+          "image": "/assets/images/sectors/robots.jpg",
+          "imageAlt": "Robots"
+        }
+      ],
+      "ctaText": "View all products",
+      "ctaLink": "/products"
+    },
+    "bridge": {
+      "text": "Follow the journey, one build at a time.",
+      "ctaText": "Explore the lab →",
+      "ctaLink": "/lab"
+    },
+    "heroImage": "/assets/images/hero-placeholder.jpg",
+    "productPreviewImage": "/assets/images/product-preview-placeholder.jpg"
+  },
+  "products": {
+    "title": "Products",
+    "subtitle": "From 3D-printed lamps and keychains to robot kits, robots, and games — each product at its own stage of development."
+  },
+  "lab": {
+    "title": "Lab",
+    "subtitle": "Research and experimentation in robotics, product design, and game development. Here's what we're working on.",
+    "approach": {
+      "title": "Our Approach",
+      "paragraph1": "We believe meaningful progress in robotics comes from iterative experimentation. Each prototype teaches us something, and each failure points to a better direction.",
+      "paragraph2": "Our lab operates with a focus on accessible technologies — using 3D printing for rapid mechanical iteration, open-source software for transparency, and modular designs for easier understanding and modification.",
+      "highlight": "We share our process, not just our results. Follow along as we build, break, and rebuild."
+    }
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "A homegrown research and engineering studio exploring intelligent robotics, 3D-printed products, and game development.",
+    "whoWeAre": {
+      "title": "Who We Are",
+      "paragraph1": "Orpus Labs is a small, independent research and engineering studio focused on building intelligent robotics, creating 3D-printed products, and developing games. We integrate mechanical design, large language models, real-time perception, and accessible hardware across our projects.",
+      "paragraph2": "We operate as a hands-on laboratory — experimenting, prototyping, and iterating on everything from simple 3D-printed lamps and keychains to complex robot systems and top-down games in Unreal Engine. Our approach emphasizes 3D-printed design, open-source principles, and modular architectures that others can learn from and build upon.",
+      "paragraph3": "We are early in this journey, and we're building in public. Each prototype, each failure, each small win moves us closer to understanding how to build machines that truly understand and interact with the world."
+    },
+    "team": {
+      "title": "Team",
+      "members": [
+        {
+          "name": "Founder",
+          "role": "Engineer & Researcher",
+          "description": "Building Orpus Labs from the ground up, with a focus on accessible robotics and practical experimentation. Interested in the intersection of AI, mechanical design, and human-robot interaction."
+        }
+      ]
+    },
+    "marketplaces": {
+      "title": "Available On",
+      "places": ["Amazon", "Meesho", "More coming soon"]
+    },
+    "philosophy": {
+      "title": "Philosophy",
+      "paragraph1": "We believe that meaningful progress in robotics requires persistent experimentation, open collaboration, and a focus on accessible technologies. Our work explores how machines can move, perceive, reason, and act — and we share what we learn along the way.",
+      "highlight": "This is not just about building products. It's about understanding the fundamental challenges of intelligent machines and finding practical paths forward, one prototype at a time."
+    }
+  },
+  "contact": {
+    "title": "Follow",
+    "subtitle": "Connect with us and follow our journey building robots, 3D-printed products, and games.",
+    "social": [
+      {
+        "name": "GitHub",
+        "description": "View our open-source projects and contributions",
+        "url": "#",
+        "icon": "github"
+      },
+      {
+        "name": "Twitter",
+        "description": "Follow updates and behind-the-scenes work",
+        "url": "#",
+        "icon": "twitter"
+      },
+      {
+        "name": "Instagram",
+        "description": "See our builds and prototypes in action",
+        "url": "#",
+        "icon": "instagram"
+      }
+    ],
+    "email": {
+      "title": "Get in Touch",
+      "description": "For inquiries, collaborations, or just to say hello.",
+      "address": "hello@orpuslabs.com"
+    }
+  },
+  "footer": {
+      "description": "A research and engineering studio exploring intelligent robotics, 3D-printed products, and game development through mechanical design, AI, and accessible hardware.",
+    "links": {
+      "explore": [
+        { "label": "Products", "path": "/products" },
+        { "label": "Lab", "path": "/lab" },
+        { "label": "About", "path": "/about" }
+      ],
+      "connect": [
+        { "label": "Follow", "path": "/contact" }
+      ]
+    }
+  }
+}
+
